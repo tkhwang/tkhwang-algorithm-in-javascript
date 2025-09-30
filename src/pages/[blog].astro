@@ -42,6 +42,12 @@ const { Content } = await render(entry)
 		<Prose>
 			<h1 class="mb-0!" data-pagefind-meta="title">{post.title}</h1>
 			<Spacer axis="vertical" size={4} />
+			{post.description && (
+				<>
+					<p class="text-faded">{post.description}</p>
+					<Spacer axis="vertical" size={4} />
+				</>
+			)}
 			<div class="text-faded">
 				{defaultDateFormat(post.date)} — <TagLinks tags={post.tags} />
 			</div>
