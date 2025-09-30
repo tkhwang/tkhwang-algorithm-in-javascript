@@ -1,12 +1,19 @@
 ---
 title: 128. Longest Consecutive Sequence
 slug: longest-consecutive-sequence
-description: Seoul is the capital and largest city of South Korea
+description: Find the longest consecutive sequence in an unsorted array using HashSet for O(n) time complexity
 date: 2025-09-30
 lastUpdated: 2025-09-30
 tags:
   - set
 ---
+
+### Problem
+
+* [LeetCode 128. Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/)
+
+
+### Solution
 
 * array 를 set 로 변환
 * set 을 순회하며, 현재 숫자의 이전 숫자가 set 에 없는 경우, 연속된 숫자는 이전에 계산을 하므로 시작을 찾기 위함.
@@ -44,6 +51,3 @@ var longestConsecutive = function(nums) {
 };
 ```
 
-## Reference
-
-* [LeetCode 128. Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/)

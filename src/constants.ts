@@ -68,6 +68,7 @@ export const FRONTMATTER_TAGS = new Map(
 		['MDX', 'mdx'] as const,
 		['Open Source', 'open-source'] as const,
 		['set', 'set'] as const,
+		['dynamic-programming', 'dynamic-programming'] as const,
 	],
 )
 
