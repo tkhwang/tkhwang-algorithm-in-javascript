@@ -7,19 +7,19 @@ export const SITE: Record<string, string> = {
 	/**
 	 * Base URL of your site, used in sitemap generation
 	 */
-	url: 'https://astro-theme-minimal-blog.lekoarts.de',
+	url: 'https://algorithm-in-javascript.netlify.app',
 	/**
 	 * Site-wide title
 	 */
-	title: 'Algorithm in Javascript',
+	title: 'Algorithm in JavaScript',
 	/**
 	 * Used on index page and as a fallback if no title is set
 	 */
-	titleDefault: 'Algorithm in Javascript',
+	titleDefault: 'Algorithm in JavaScript - LeetCode Solutions & Patterns',
 	/**
 	 * Used in meta tags, RSS feed, and other places
 	 */
-	description: 'Algorithm in Javascript',
+	description: 'Explore LeetCode solutions, algorithm patterns, and problem-solving techniques using JavaScript. Learn to optimize code and master data structures.',
 	/**
 	 * Language used in the <html> tag
 	 */
@@ -31,7 +31,7 @@ export const SITE: Record<string, string> = {
 	/**
 	 * Default author name that gets added to meta tags
 	 */
-	defaultAuthor: 'LekoArts',
+	defaultAuthor: 'tkhwang',
 }
 
 interface Header {
