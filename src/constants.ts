@@ -67,7 +67,7 @@ export const FRONTMATTER_TAGS = new Map(
 		['Coding', 'coding'] as const,
 		['MDX', 'mdx'] as const,
 		['Open Source', 'open-source'] as const,
-		['서울', '서울'] as const,
+		['set', 'set'] as const,
 	],
 )
 
