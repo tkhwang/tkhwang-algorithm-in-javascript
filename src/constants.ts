@@ -19,11 +19,12 @@ export const SITE: Record<string, string> = {
 	/**
 	 * Used in meta tags, RSS feed, and other places
 	 */
-	description: 'Explore LeetCode solutions, algorithm patterns, and problem-solving techniques using JavaScript. Learn to optimize code and master data structures.',
+	description:
+    'Explore LeetCode solutions, algorithm patterns, and problem-solving techniques using JavaScript. Learn to optimize code and master data structures.',
 	/**
 	 * Language used in the <html> tag
 	 */
-	lang: 'en-US',
+	lang: 'ko-KR',
 	/**
 	 * Name of the image inside `public` folder that should be used as a default og:image
 	 */
@@ -36,7 +37,11 @@ export const SITE: Record<string, string> = {
 
 interface Header {
 	internal: Array<{ title: string, url: string }>
-	external: Array<{ title: string, url: string, props?: Record<string, unknown> }>
+	external: Array<{
+		title: string
+		url: string
+		props?: Record<string, unknown>
+	}>
 }
 
 /**
@@ -61,16 +66,15 @@ export const HEADER: Header = {
 /**
  * A map of name - slug pairs
  */
-export const FRONTMATTER_TAGS = new Map(
-	[
-		['General', 'general'] as const,
-		['Coding', 'coding'] as const,
-		['MDX', 'mdx'] as const,
-		['Open Source', 'open-source'] as const,
-		['set', 'set'] as const,
-		['dynamic-programming', 'dynamic-programming'] as const,
-	],
-)
+export const FRONTMATTER_TAGS = new Map([
+	['General', 'general'] as const,
+	['Coding', 'coding'] as const,
+	['MDX', 'mdx'] as const,
+	['Open Source', 'open-source'] as const,
+	['set', 'set'] as const,
+	['dynamic-programming', 'dynamic-programming'] as const,
+	['stack', 'stack'] as const,
+])
 
 export type FrontmatterTag = MapKey<typeof FRONTMATTER_TAGS>
 

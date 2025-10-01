@@ -1,0 +1,50 @@
+---
+title: 20. Valid Parentheses
+slug: valid-parentheses
+description: Validate balanced parentheses using stack data structure to match opening and closing brackets
+date: 2025-10-01
+lastUpdated: 2025-10-01
+tags:
+  - stack
+---
+
+### Problem
+
+- [LeetCode 20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
+
+### Solution
+
+- 전형적인 Stack 이용하는 문제.
+- 하나씩 문자를 순회하면서 체크
+- 열린 괄호는 stack 에 추가
+- 닫힌 괄호는 stack 에서 pop() 한 후에 해당 괄호의 열린 괄호를 조회한 후에 실제 값과 같은지 체크
+  - 만약 다르다면 올바르지 않은 괄호이므로 false 반환
+- 만약 모든 문자를 순회한 후에 stack 이 비어있다면 올바른 괄호이므로 true 반환
+  - stack 이 비어있지 않다면 올바르지 않은 괄호이므로 false 반환
+
+```typescript
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function (s) {
+  const stack = [];
+
+  const parens = {
+    "]": "[",
+    ")": "(",
+    "}": "{",
+  };
+
+  for (const ch of s) {
+    if (Object.values(parens).includes(ch)) {
+      stack.push(ch);
+    } else {
+      const last = stack.pop();
+      if (last !== parens[ch]) return false;
+    }
+  }
+
+  return stack.length === 0;
+};
+```
