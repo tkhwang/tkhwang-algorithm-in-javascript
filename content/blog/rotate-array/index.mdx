@@ -1,0 +1,115 @@
+---
+title: 189. Rotate Array    
+slug: rotate-array
+description: 배열을 k번 오른쪽으로 회전시키는 문제를 여러가지 솔루션으로 해결하기 
+date: 2025-10-01
+lastUpdated: 2025-10-01
+tags:
+  - hash
+---
+
+### Problem
+
+- [LeetCode 189. Rotate Array](https://leetcode.com/problems/rotate-array/)
+- Array 를 k 번 오른쪽으로 shift 하는 문제.
+
+### 1st Solution: Time `O(n * k)`
+
+
+- 처음에는 있는 그대로 오른쪽에서 `pop()` 한 후 `unshift()` 해서 맨 앞에 추가
+- array `unshift()` 는 O(n) 시간 복잡도를 가지므로, k 번 반복하면 O(n * k) 시간 복잡도를 가짐
+
+
+```typescript
+/**
+ Do not return anything, modify nums in-place instead.
+ */
+function rotate(nums: number[], k: number): void {
+    while (k > 0) {
+        nums.unshift(nums.pop());
+        k -= 1;
+    }
+};
+```
+
+### 2nd Solution : Time `O(n)` Space `O(n)`
+
+* Space 를 `O(n)` 을 사용할 수 있다면 
+* `i`th index 가 rotate 후에는 `(i + k) % N` 이 되므로, 이를 이용하여 새로운 array 를 만들고 
+* in place return 을 위해서 원래의 array 에 값 다시 덮어쓰기
+
+
+```typescript
+/**
+ Do not return anything, modify nums in-place instead.
+ */
+function rotate(nums: number[], k: number): void {
+    const N = nums.length;
+
+    const rotated = Array(N).fill(0);
+
+    for (let i = 0; i < N; i += 1) {
+        rotated[(i + k) % N] = nums[i];
+    }
+
+    for (let i = 0; i < N; i += 1) {
+        nums[i] = rotated[i];
+    }
+};
+```
+
+### 3rd Solution : Time `O(n)` Space `O(n)`
+
+- 2nd solution 과 동일한 방식으로 풀이
+- 새로운 array 를 `slice()` 이용해서 좀더 직관적으로 만드는 버전
+
+```typescript
+/**
+ Do not return anything, modify nums in-place instead.
+ */
+function rotate(nums: number[], k: number): void {
+    const N = nums.length;
+    const M = k % N;
+
+    const temp = [
+        ...nums.slice(-M),
+        ...nums.slice(0, -M)
+    ]
+
+    for (let i = 0; i < N; i += 1) {
+        nums[i] = temp[i];
+    }
+};
+```
+
+### 4th Solution : Time `O(n)` Space `O(1)`
+
+- Space 를 새로 사용하지 않고, 가능할까 ?
+- 이것 역시 경험하지 않고 생각해낼 수 있을까 ? 잘 모르겠지만...
+- `[1,2,3,4,5,6,7]` 을 3 번 오른쪽으로 shift 하면 `[5,6,7 , 1,2,3,4]` 가 된다.
+- 우선 전체를 reverse 하면 `[7,6,5,4,3,2,1]` 
+- 0 ~ k-1 만 reverse 하면 `[5,6,7,   4,3,2,1]`
+- k ~ N-1 만 reverse 하면 `[5,6,7,   4,3,2,1]`
+- 이렇게 세 번에 reverse 하면 원하는 결과가 나온다.
+
+```typescript
+/**
+ Do not return anything, modify nums in-place instead.
+ */
+function rotate(nums: number[], k: number): void {
+    const N = nums.length;
+    k = k % N;
+
+    const reverse = (array, left, right) => {
+        while (left < right) {
+            [ array[left], array[right] ] = [ array[right], array[left] ];
+            left += 1;
+            right -= 1;
+        }
+    }
+
+    reverse(nums, 0, N - 1);
+    reverse(nums, 0, k - 1);
+    reverse(nums, k, N - 1);
+};
+```

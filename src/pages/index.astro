@@ -12,7 +12,7 @@ import { SITE } from '@constants'
 
 const OSS_PROJECTS: Array<{ name: string; url: string; description: string }> = []
 
-const POSTS_TO_SHOW = 3
+const POSTS_TO_SHOW = 5
 
 const posts = sortAsc(await getCollection('blog')).slice(0, POSTS_TO_SHOW)
 ---
