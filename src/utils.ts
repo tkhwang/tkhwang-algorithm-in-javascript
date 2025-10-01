@@ -83,8 +83,7 @@ export function getTags(data: Array<CollectionEntry<'blog'>>) {
 			const existingTag = output.find(t => t.tag === tag)
 			if (existingTag) {
 				existingTag.count++
-			}
-			else {
+			} else {
 				output.push({
 					tag,
 					slug: tag,
@@ -125,8 +124,7 @@ export function pagefindIntegration(): AstroIntegration {
 				server.middlewares.use((req, res, next) => {
 					if (req.url?.startsWith('/pagefind/')) {
 						serve(req, res, next)
-					}
-					else {
+					} else {
 						next()
 					}
 				})

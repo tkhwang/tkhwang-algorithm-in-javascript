@@ -64,16 +64,27 @@
 		iframe.contentWindow?.postMessage({ giscus: { setConfig: { theme } } }, 'https://giscus.app')
 	}
 
+	let themeObserver: MutationObserver | null = null
 	// 테마 변경 감지
 	function observeTheme() {
-		const observer = new MutationObserver(() => {
-			// iframe이 로드될 때까지 대기
-			setTimeout(() => {
-				setGiscusTheme()
-			}, 100)
+		// Disconnect previous observer to prevent memory leaks
+		if (themeObserver) {
+			themeObserver.disconnect()
+		}
+		themeObserver = new MutationObserver(() => {
+			// Poll for the iframe to ensure it's loaded before setting the theme.
+			const attemptToSetTheme = (retries = 10) => {
+				const iframe = document.querySelector('iframe.giscus-frame')
+				if (iframe) {
+					setGiscusTheme()
+				} else if (retries > 0) {
+					setTimeout(() => attemptToSetTheme(retries - 1), 100)
+				}
+			}
+			attemptToSetTheme()
 		})
 
-		observer.observe(document.documentElement, {
+		themeObserver.observe(document.documentElement, {
 			attributes: true,
 			attributeFilter: ['data-theme'],
 		})
