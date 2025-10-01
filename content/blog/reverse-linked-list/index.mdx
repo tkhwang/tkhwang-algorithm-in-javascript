@@ -1,0 +1,86 @@
+---
+title: 206. Reverse Linked List 
+slug: reverse-linked-list
+description: 반복문을 사용하여 연결 리스트를 역순으로 뒤집기 
+date: 2025-10-01
+lastUpdated: 2025-10-01
+tags:
+  - linked-list
+---
+
+### Problem
+
+- [LeetCode 206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/)
+
+
+### Solution
+
+* 왜 난 linked list 가 싫을까 ?
+
+```
+        head
+         |
+   null [1] => [2] => [3] => [4] => [5]
+   |     |
+  prv   cur
+```
+
+* 최초에는 `prv = null`, `cur = head` 할당하여 시작
+* `cur` 가 valid 하는 동안 순회
+* 한 노드 reverse 하는 작업이 끝나면 다음 노드로 이동
+
+```typescript
+    while(cur) {
+        // reverse linked list
+
+        // move to next
+        prv = cur;
+        cur = original cur.next;
+    }
+```
+
+* linked list 를  reverse  하는 작업.
+    - 현재는 `cur.next` 는 `[2]` 을 가르키고 있음.
+    - reverse 하면 `cur.next` 가 변경되므로 나중 전진을 위해서 `cur.next` 를 `temp` 로 저장
+    - 대신 reversing 을 위해서 `cur.next` 를 `prv` 로 변경
+```
+        head
+         |
+         |  -> 나중을 위해서 temp 로 저장 
+   null [1] => [2] => [3] => [4] => [5]
+   |     |
+  prv   cur
+
+  const temp = cur.next;
+  cur.next = prv;
+```
+
+* 전체를 합하면...
+
+```typescript
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     val: number
+ *     next: ListNode | null
+ *     constructor(val?: number, next?: ListNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.next = (next===undefined ? null : next)
+ *     }
+ * }
+ */
+
+function reverseList(head: ListNode | null): ListNode | null {
+    let prv = null;
+    let cur = head;
+    
+    while (cur) {
+        const temp = cur.next;
+        cur.next = prv;
+        prv = cur;
+        cur = temp;
+    }
+    
+    return prv;    
+};
+```

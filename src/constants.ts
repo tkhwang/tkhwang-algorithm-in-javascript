@@ -74,6 +74,7 @@ export const FRONTMATTER_TAGS = [
 	'stack',
 	'sort',
 	'hash',
+	'linked-list',
 ] as const
 
 export type FrontmatterTag = typeof FRONTMATTER_TAGS[number]
