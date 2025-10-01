@@ -3,7 +3,7 @@ import * as p from '@clack/prompts'
 import isValidFilename from 'valid-filename'
 import { FRONTMATTER_TAGS } from '../src/constants'
 
-const TAGS_NAMES = Array.from(FRONTMATTER_TAGS.keys())
+const TAGS_NAMES = [...FRONTMATTER_TAGS]
 
 async function main() {
 	p.intro('Assistant')

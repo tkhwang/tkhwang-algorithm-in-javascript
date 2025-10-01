@@ -1,5 +1,3 @@
-type MapKey<T extends Map<any, any>> = T extends Map<infer K, any> ? K : never
-
 /**
  * Metadata for your site
  */
@@ -64,19 +62,19 @@ export const HEADER: Header = {
 }
 
 /**
- * A map of name - slug pairs
+ * Available tags for blog posts
  */
-export const FRONTMATTER_TAGS = new Map([
-	['General', 'general'] as const,
-	['Coding', 'coding'] as const,
-	['MDX', 'mdx'] as const,
-	['Open Source', 'open-source'] as const,
-	['set', 'set'] as const,
-	['dynamic-programming', 'dynamic-programming'] as const,
-	['stack', 'stack'] as const,
-])
+export const FRONTMATTER_TAGS = [
+	'general',
+	'coding',
+	'mdx',
+	'open-source',
+	'set',
+	'dynamic-programming',
+	'stack',
+] as const
 
-export type FrontmatterTag = MapKey<typeof FRONTMATTER_TAGS>
+export type FrontmatterTag = typeof FRONTMATTER_TAGS[number]
 
 export const SKIP_NAV_ID = 'skip-to-content'
 

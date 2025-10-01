@@ -88,7 +88,7 @@ export function getTags(data: Array<CollectionEntry<'blog'>>) {
 			else {
 				output.push({
 					tag,
-					slug: FRONTMATTER_TAGS.get(tag) as string,
+					slug: tag,
 					count: 1,
 				})
 			}

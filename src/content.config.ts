@@ -4,7 +4,7 @@ import { FRONTMATTER_TAGS } from './constants'
 
 const zodEnum = <T>(arr: T[]): [T, ...T[]] => arr as [T, ...T[]]
 
-const TAGS_NAMES = Array.from(FRONTMATTER_TAGS.keys())
+const TAGS_NAMES = [...FRONTMATTER_TAGS]
 
 const blog = defineCollection({
 	loader: glob({ pattern: '**\/[^_]*.mdx', base: './content/blog' }),
