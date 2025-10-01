@@ -4,7 +4,6 @@ import type { CollectionEntry } from 'astro:content'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sirv from 'sirv'
-import { FRONTMATTER_TAGS } from './constants'
 
 /**
  * Returns a date in the format "MMM DD, YYYY"

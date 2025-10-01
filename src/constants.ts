@@ -72,6 +72,8 @@ export const FRONTMATTER_TAGS = [
 	'set',
 	'dynamic-programming',
 	'stack',
+	'sort',
+	'hash',
 ] as const
 
 export type FrontmatterTag = typeof FRONTMATTER_TAGS[number]
