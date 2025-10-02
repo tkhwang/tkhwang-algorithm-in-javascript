@@ -12,7 +12,7 @@ const { pathname } = Astro.url
 	<div class="flex flex-row justify-between items-center">
 		<div>
 			<a
-				class="font-semibold text-xl md:text-2xl lg:text-3xl text-highlight"
+				class="font-semibold text-lg md:text-xl lg:text-2xl text-highlight"
 				href="/"
 				aria-label={`${SITE.title} - Back to home`}>{SITE.title}</a
 			>
@@ -20,7 +20,7 @@ const { pathname } = Astro.url
 		<Search />
 	</div>
 	<Spacer axis="vertical" size={6} />
-	<div class="flex flex-row justify-between items-center border-b border-border pb-4 text-lg md:text-xl">
+	<div class="flex flex-row justify-between items-center border-b border-border pb-4 text-base md:text-lg">
 		<nav aria-label="Primary navigation" class="flex gap-4">
 			{
 				HEADER.internal.map((link) => (

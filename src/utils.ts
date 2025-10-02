@@ -51,7 +51,7 @@ export function frontmatterToString(data: Record<string, any>): string {
 /**
  * Sort collection entries in descending order by their frontmatter date.
  */
-export function sortAsc<T extends { data: { date: Date } }>(data: Array<T>) {
+export function sortDesc<T extends { data: { date: Date } }>(data: Array<T>) {
 	return data.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
 }
 

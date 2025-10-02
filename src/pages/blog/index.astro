@@ -3,11 +3,11 @@ import Layout from '@layouts/layout.astro'
 import Seo from '@components/seo.astro'
 import { getCollection } from 'astro:content'
 import SkipNavContent from '@components/a11y/skip-nav-content.astro'
-import { defaultDateFormat, sortAsc } from '@utils'
+import { defaultDateFormat, sortDesc } from '@utils'
 import Spacer from '@components/spacer.astro'
 import Link from '@components/link.astro'
 
-const posts = sortAsc(await getCollection('blog'))
+const posts = sortDesc(await getCollection('blog'))
 ---
 
 <Layout>

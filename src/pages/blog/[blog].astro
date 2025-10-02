@@ -41,7 +41,7 @@ const { Content } = await render(entry)
 	</Seo>
 	<SkipNavContent searchIndex={post.searchIndex}>
 		<Prose>
-			<h1 class="mb-0!" data-pagefind-meta="title">{post.title}</h1>
+			<h1 class="mb-0! text-xl md:text-2xl text-highlight" data-pagefind-meta="title">{post.title}</h1>
 			<Spacer axis="vertical" size={4} />
 			{
 				post.description && (

@@ -2,7 +2,7 @@ import type { RSSFeedItem } from '@astrojs/rss'
 import type { APIRoute } from 'astro'
 import rss from '@astrojs/rss'
 import { SITE } from '@constants'
-import { sortAsc } from '@utils'
+import { sortDesc } from '@utils'
 import { getCollection } from 'astro:content'
 
 function generateContent(description: string, link: string) {
@@ -10,7 +10,7 @@ function generateContent(description: string, link: string) {
 }
 
 export const GET: APIRoute = async () => {
-	const items = (sortAsc(await getCollection('blog'))).map((entry) => {
+	const items = (sortDesc(await getCollection('blog'))).map((entry) => {
 		const path = `blog/${entry.data.slug}`
 		return {
 			title: entry.data.title,

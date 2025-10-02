@@ -41,8 +41,8 @@ const { tagName, postsWithTag } = Astro.props
 <Layout>
 	<Seo slot="seo" title={`Tag: ${tagName}`} />
 	<SkipNavContent>
-		<div class="border-b border-border pb-4 flex justify-between items-center">
-			<h1 class="font-medium text-xl md:text-2xl lg:text-3xl text-highlight">Tag: {tagName}</h1>
+			<div class="border-b border-border pb-4 flex justify-between items-center">
+				<h1 class="font-medium text-lg md:text-xl lg:text-2xl text-highlight">Tag: {tagName}</h1>
 			<div><Link href="/tags/">See all tags</Link></div>
 		</div>
 		<Spacer axis="vertical" size={8} />
