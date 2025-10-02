@@ -10,8 +10,13 @@ function generateContent(description: string, link: string) {
 }
 
 export const GET: APIRoute = async () => {
-	const items = (sortDesc(await getCollection('blog'))).map((entry) => {
-		const path = `blog/${entry.data.slug}`
+	const blogEntries = await getCollection('blog')
+	const frameEntries = await getCollection('frame')
+	const entries = sortDesc([...blogEntries, ...frameEntries])
+
+	const items = entries.map((entry) => {
+		const segment = entry.collection === 'frame' ? 'frame' : 'blog'
+		const path = `${segment}/${entry.data.slug}`
 		return {
 			title: entry.data.title,
 			description: entry.data.description,
@@ -27,6 +32,6 @@ export const GET: APIRoute = async () => {
 		description: SITE.description,
 		site: SITE.url,
 		items,
-		customData: '<language>en-us</language>',
+		customData: '<language>ko-KR</language>',
 	})
 }
