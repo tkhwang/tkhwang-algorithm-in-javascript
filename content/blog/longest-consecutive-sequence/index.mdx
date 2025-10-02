@@ -13,13 +13,14 @@ tags:
 * [LeetCode 128. Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/)
 
 
-### Solution
+### Reasoning
 
 * array 를 set 로 변환
 * set 을 순회하며, 현재 숫자의 이전 숫자가 set 에 없는 경우, 연속된 숫자는 이전에 계산을 하므로 시작을 찾기 위함.
 * 현재 숫자부터 시작하여 연속된 숫자의 길이를 계산
 * 가장 긴 연속된 숫자의 길이를 반환
 
+### Solution
 
 ```typescript
 /**

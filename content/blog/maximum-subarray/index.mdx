@@ -12,14 +12,14 @@ tags:
 
 * [LeetCode 53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
 
-
-### Solution
+### Reasoning
 
 * sliding window 는 적용하기 어려움. window expand/shrink 시점을 정의하기 어려움.
 * Dynamic programming 적용.
 * dp[i] 는 nums[i] 까지의 최대 합을 의미.
 * Kadane’s Algorithm: dp[i] 는 dp[i-1] + nums[i] 와 nums[i] 중 큰 값을 선택.
 
+### Solution
 
 ```typescript
 /**

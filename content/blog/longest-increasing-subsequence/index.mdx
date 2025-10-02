@@ -1,0 +1,81 @@
+---
+title: 300. Longest Increasing Subsequence
+slug: longest-increasing-subsequence
+description: 동적 계획법으로 각 위치의 부분 수열 길이를 갱신해 O(n^2) 시간에 LIS를 계산하기
+date: 2025-10-02
+lastUpdated: 2025-10-02
+tags:
+  - dynamic-programming
+---
+
+### Problem 
+
+* [LeetCode 300. Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
+
+
+### Reasoning
+
+```
+             1   2 3      4
+nums = [10,9,2,5,3,7,101,18]
+```
+
+- 이런 문제는 어떻게 풀어야 할까 ?
+    - brute force 로 가능한가 ?
+    - backtrack 으로 가능한가 ?
+    - 수학적 귀납법이 적용되나 ? 
+      - (i-1)번째까지의 LIS 가 있다면 (i)번째 LIS 를 구할 수 있는가 ?
+
+### Frame
+
+Dynamic Programming 적용해보자
+
+- `dp[i]`는 `(i)`번째 숫자에서 가장 긴 increasing subsequence 의 길이를 의미
+- base case: 숫자 하나는 LIS 1 이다.
+- 상태: [0, ..., i, ..., N-1]
+- 선택
+- 상태 전이 방정식
+
+```
+// base case
+dp[0][0][...] = base case value
+
+// 상태 전이 진행 
+for 상태1 in 상태1의_모든_데이터:
+  for 상태2 in 상태2의_모든_데이터:
+    for ...:
+      dp[상태1][상태2][...] = Math.max(선택1, 선택2, ...)
+```          
+
+- 상태 순회 순서는 초기값이 있는 위치와 최종 결과가 있는 위치를 고려하여 결정
+
+
+### Solution
+
+```typescript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var lengthOfLIS = function(nums) {
+    const N = nums.length;
+
+    // dp[i]: maximum increasing subsequence at i
+    const dp = Array(N).fill(1);
+    dp[0] = 1;
+    let max = 1;
+
+    for (let i = 1; i < N; i += 1) {
+        for (let j = 0; j < i; j += 1) {
+            if (nums[j] < nums[i]) {
+                dp[i] = Math.max(
+                    dp[i],
+                    dp[j] + 1
+                )
+                if (max < dp[i]) max = dp[i];
+            }
+        }
+    }
+    return max;
+};
+```
