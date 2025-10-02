@@ -10,13 +10,16 @@ function generateContent(description: string, link: string) {
 }
 
 export const GET: APIRoute = async () => {
-	const items = (sortAsc(await getCollection('blog'))).map(entry => ({
-		title: entry.data.title,
-		description: entry.data.description,
-		content: generateContent(entry.data.description, entry.data.slug),
-		link: `/${entry.data.slug}/`,
-		pubDate: entry.data.date,
-	} satisfies RSSFeedItem))
+	const items = (sortAsc(await getCollection('blog'))).map((entry) => {
+		const path = `blog/${entry.data.slug}`
+		return {
+			title: entry.data.title,
+			description: entry.data.description,
+			content: generateContent(entry.data.description, path),
+			link: `/${path}/`,
+			pubDate: entry.data.date,
+		} satisfies RSSFeedItem
+	})
 
 	return rss({
 		trailingSlash: true,

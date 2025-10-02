@@ -20,6 +20,21 @@ const blog = defineCollection({
 	}),
 })
 
+const frame = defineCollection({
+	loader: glob({ pattern: '**\/[^_]*.mdx', base: './content/frame' }),
+	schema: z.object({
+		title: z.string(),
+		slug: z.string(),
+		description: z.string(),
+		date: z.date(),
+		lastUpdated: z.date(),
+		tags: z.array(z.enum(zodEnum(TAGS_NAMES))).default([]),
+		image: z.string().optional(),
+		searchIndex: z.boolean().optional().default(true),
+	}),
+})
+
 export const collections = {
 	blog,
+	frame,
 }

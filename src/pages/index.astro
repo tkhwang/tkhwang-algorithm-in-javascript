@@ -35,7 +35,7 @@ const posts = sortAsc(await getCollection('blog')).slice(0, POSTS_TO_SHOW)
 				{
 					posts.map(({ data: post }) => (
 						<div>
-							<Link variant="highlight" href={`/${post.slug}/`}>
+						<Link variant="highlight" href={`/blog/${post.slug}/`}>
 								{post.title}
 							</Link>
 							<Spacer axis="vertical" size={2} />
