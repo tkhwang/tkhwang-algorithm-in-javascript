@@ -17,6 +17,20 @@ import '@styles/global.css'
 		<meta name="generator" content={Astro.generator} />
 		<Font cssVariable="--font-plex-sans" preload />
 		<ThemeProvider />
+		{import.meta.env.PROD && (
+			<>
+				{/* Google Analytics */}
+				<script async src="https://www.googletagmanager.com/gtag/js?id=G-NM6ZCHYCPC"></script>
+				<script is:inline>
+					window.dataLayer = window.dataLayer || [];
+					function gtag() {
+						dataLayer.push(arguments);
+					}
+					gtag('js', new Date());
+					gtag('config', 'G-NM6ZCHYCPC');
+				</script>
+			</>
+		)}
 		<slot name="seo" />
 	</head>
 	<body class="min-h-screen bg-bg text-text">
