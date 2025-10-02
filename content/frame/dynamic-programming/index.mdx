@@ -1,0 +1,32 @@
+---
+title: Dynamic Programming   
+slug: frame-dynamic-programming
+description: 상태 정의·전이·초기값을 구조화해 동적 계획법 사고 흐름을 빠르게 재현하기
+date: 2025-10-02
+lastUpdated: 2025-10-02
+tags:
+  - dynamic-programming
+---
+
+
+- base case: 숫자 하나는 LIS 1 이다.
+- 상태: [0, ..., i, ..., N-1]
+- 선택
+- 상태 전이 방정식
+
+```
+// base case
+dp[0][0][...] = base case value
+
+// 상태 전이 진행 
+for 상태1 in 상태1의_모든_데이터:
+  for 상태2 in 상태2의_모든_데이터:
+    for ...:
+      dp[상태1][상태2][...] = Math.max(선택1, 선택2, ...)
+```          
+
+- 상태 순회 순서는 초기값이 있는 위치와 최종 결과가 있는 위치를 고려하여 결정
+
+### Reference
+
+- [코딩 인터뷰를 위한 알고리즘 치트시트](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=301923855&start=slayer)

@@ -18,7 +18,7 @@ export const SITE: Record<string, string> = {
 	 * Used in meta tags, RSS feed, and other places
 	 */
 	description:
-    'Explore LeetCode solutions, algorithm patterns, and problem-solving techniques using JavaScript. Learn to optimize code and master data structures.',
+    'Concise JavaScript walkthroughs for LeetCode challenges, highlighting the reasoning bridge from problem statement to working solution.',
 	/**
 	 * Language used in the <html> tag
 	 */
@@ -53,6 +53,10 @@ export const HEADER: Header = {
 		{
 			title: 'Blog',
 			url: '/blog/',
+		},
+		{
+			title: 'Frame',
+			url: '/frame/',
 		},
 	],
 	/**

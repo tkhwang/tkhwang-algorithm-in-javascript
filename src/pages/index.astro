@@ -4,7 +4,7 @@ import Seo from '@components/seo.astro'
 import { getCollection } from 'astro:content'
 import { Content as Hero } from '@assets/hero.mdx'
 import SkipNavContent from '@components/a11y/skip-nav-content.astro'
-import { defaultDateFormat, sortAsc } from '@utils'
+import { defaultDateFormat, sortDesc } from '@utils'
 import Link from '@components/link.astro'
 import Prose from '@components/prose.astro'
 import Spacer from '@components/spacer.astro'
@@ -13,8 +13,10 @@ import { SITE } from '@constants'
 const OSS_PROJECTS: Array<{ name: string; url: string; description: string }> = []
 
 const POSTS_TO_SHOW = 5
+const FRAMES_TO_SHOW = 3
 
-const posts = sortAsc(await getCollection('blog')).slice(0, POSTS_TO_SHOW)
+const posts = sortDesc(await getCollection('blog')).slice(0, POSTS_TO_SHOW)
+const frames = sortDesc(await getCollection('frame')).slice(0, FRAMES_TO_SHOW)
 ---
 
 <Layout>
@@ -27,7 +29,7 @@ const posts = sortAsc(await getCollection('blog')).slice(0, POSTS_TO_SHOW)
 		<Spacer axis="vertical" size={32} />
 		<section>
 			<div class="border-b border-border pb-4 flex justify-between items-center">
-				<h2 class="font-medium text-xl md:text-2xl lg:text-3xl text-highlight">Latest Posts</h2>
+				<h2 class="font-medium text-lg md:text-xl lg:text-2xl text-highlight">Latest Posts</h2>
 				<div><Link href="/blog/">Read all posts</Link></div>
 			</div>
 			<Spacer axis="vertical" size={8} />
@@ -35,7 +37,7 @@ const posts = sortAsc(await getCollection('blog')).slice(0, POSTS_TO_SHOW)
 				{
 					posts.map(({ data: post }) => (
 						<div>
-							<Link variant="highlight" href={`/${post.slug}/`}>
+							<Link variant="highlight" href={`/blog/${post.slug}/`}>
 								{post.title}
 							</Link>
 							<Spacer axis="vertical" size={2} />
@@ -45,6 +47,31 @@ const posts = sortAsc(await getCollection('blog')).slice(0, POSTS_TO_SHOW)
 				}
 			</div>
 		</section>
+		<Spacer axis="vertical" size={32} />
+		{
+			frames.length ? (
+				<section>
+				<div class="border-b border-border pb-4 flex justify-between items-center">
+					<h2 class="font-medium text-lg md:text-xl lg:text-2xl text-highlight">Latest Frames</h2>
+						<div>
+							<Link href="/frame/">Read all frames</Link>
+						</div>
+					</div>
+					<Spacer axis="vertical" size={8} />
+					<div class="flex gap-10 flex-col">
+						{frames.map(({ data: frame }) => (
+							<div>
+								<Link variant="highlight" href={`/frame/${frame.slug}/`}>
+									{frame.title}
+								</Link>
+								<Spacer axis="vertical" size={2} />
+								<div class="text-faded">{defaultDateFormat(frame.date)}</div>
+							</div>
+						))}
+					</div>
+				</section>
+			) : null
+		}
 		<Spacer axis="vertical" size={32} />
 	</SkipNavContent>
 </Layout>
