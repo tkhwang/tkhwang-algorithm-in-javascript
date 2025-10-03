@@ -1,7 +1,7 @@
 ---
 title: 322. Coin Change
 slug: coin-change
-description: 동적 계획법을 사용하여 배낭 무게 제한 내에서 물건들의 최대 가치를 구하는 01-Knapsack 문제
+description: Bottom-up 동적 계획법으로 목표 금액을 만들기 위한 최소 동전 개수를 계산하기
 date: 2025-10-03
 lastUpdated: 2025-10-03
 tags:
@@ -76,4 +76,3 @@ var coinChange = function(coins, amount) {
     return dp[amount] === Infinity ? -1 : dp[amount];
 };
 ```
-
