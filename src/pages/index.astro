@@ -37,11 +37,15 @@ const frames = sortDesc(await getCollection('frame')).slice(0, FRAMES_TO_SHOW)
 				{
 					posts.map(({ data: post }) => (
 						<div>
-							<Link variant="highlight" href={`/blog/${post.slug}/`}>
+							<Link variant="highlight" class="font-bold" href={`/blog/${post.slug}/`}>
 								{post.title}
 							</Link>
 							<Spacer axis="vertical" size={2} />
-							<div class="text-faded">{defaultDateFormat(post.date)}</div>
+							<div class="text-subtle text-md md:text-lg">{post.description}</div>
+							<Spacer axis="vertical" size={2} />
+							<div class="text-faded">
+								{defaultDateFormat(post.date)} — {post.tags.join(', ')}
+							</div>
 						</div>
 					))
 				}
@@ -51,8 +55,8 @@ const frames = sortDesc(await getCollection('frame')).slice(0, FRAMES_TO_SHOW)
 		{
 			frames.length ? (
 				<section>
-				<div class="border-b border-border pb-4 flex justify-between items-center">
-					<h2 class="font-medium text-lg md:text-xl lg:text-2xl text-highlight">Latest Frames</h2>
+					<div class="border-b border-border pb-4 flex justify-between items-center">
+						<h2 class="font-medium text-lg md:text-xl lg:text-2xl text-highlight">Latest Frames</h2>
 						<div>
 							<Link href="/frame/">Read all frames</Link>
 						</div>

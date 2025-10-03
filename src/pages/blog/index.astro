@@ -18,15 +18,15 @@ const posts = sortDesc(await getCollection('blog'))
 			{
 				posts.map(({ data: post }) => (
 					<div>
-					<Link variant="highlight" class="font-medium" href={`/blog/${post.slug}/`}>
+						<Link variant="highlight" class="font-bold" href={`/blog/${post.slug}/`}>
 							{post.title}
 						</Link>
+						<Spacer axis="vertical" size={2} />
+						<div class="text-subtle text-md md:text-lg">{post.description}</div>
 						<Spacer axis="vertical" size={2} />
 						<div class="text-faded">
 							{defaultDateFormat(post.date)} — {post.tags.join(', ')}
 						</div>
-						<Spacer axis="vertical" size={4} />
-						<div class="text-subtle text-md md:text-lg">{post.description}</div>
 					</div>
 				))
 			}

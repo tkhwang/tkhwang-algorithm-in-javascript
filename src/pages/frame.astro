@@ -22,12 +22,12 @@ const frames = sortDesc(await getCollection('frame'))
 							{frame.title}
 						</Link>
 						<Spacer axis="vertical" size={2} />
+						<div class="text-subtle text-md md:text-lg">{frame.description}</div>
+						<Spacer axis="vertical" size={2} />
 						<div class="text-faded">
 							{defaultDateFormat(frame.date)}
 							{frame.tags.length ? ` — ${frame.tags.join(', ')}` : null}
 						</div>
-						<Spacer axis="vertical" size={4} />
-						<div class="text-subtle text-md md:text-lg">{frame.description}</div>
 					</div>
 				))
 			}
