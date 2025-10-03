@@ -15,18 +15,19 @@ import { getCollection } from 'astro:content'
 export async function getStaticPaths() {
 	const entries = await getCollection('blog')
 
-	let result = []
+	const result = []
 
-	for (const [tagName, tagSlug] of FRONTMATTER_TAGS) {
-		const postsWithTag = getPostsByTag(entries, tagName)
+	for (const tag of FRONTMATTER_TAGS) {
+		const postsWithTag = getPostsByTag(entries, tag)
+
+		if (!postsWithTag.length) continue
 
 		result.push({
 			params: {
-				tag: tagSlug,
+				tag,
 			},
 			props: {
-				tagName,
-				tagSlug,
+				tagName: tag,
 				postsWithTag,
 			},
 		})
@@ -41,8 +42,8 @@ const { tagName, postsWithTag } = Astro.props
 <Layout>
 	<Seo slot="seo" title={`Tag: ${tagName}`} />
 	<SkipNavContent>
-			<div class="border-b border-border pb-4 flex justify-between items-center">
-				<h1 class="font-medium text-lg md:text-xl lg:text-2xl text-highlight">Tag: {tagName}</h1>
+		<div class="border-b border-border pb-4 flex justify-between items-center">
+			<h1 class="font-medium text-lg md:text-xl lg:text-2xl text-highlight">Tag: {tagName}</h1>
 			<div><Link href="/tags/">See all tags</Link></div>
 		</div>
 		<Spacer axis="vertical" size={8} />
@@ -54,6 +55,12 @@ const { tagName, postsWithTag } = Astro.props
 							{post.title}
 						</Link>
 						<Spacer axis="vertical" size={2} />
+						{post.description ? (
+							<>
+								<div class="text-subtle text-md md:text-lg">{post.description}</div>
+								<Spacer axis="vertical" size={2} />
+							</>
+						) : null}
 						<div class="text-faded">
 							{defaultDateFormat(post.date)} — {post.tags.join(', ')}
 						</div>
