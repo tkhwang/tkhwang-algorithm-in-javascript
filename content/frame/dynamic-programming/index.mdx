@@ -16,14 +16,17 @@ tags:
 
 ```
 // base case
-dp[0][0][...] = base case value
+dp[0][0][...] = base case
 
-// 상태 전이 진행 
-for 상태1 in 상태1의_모든_데이터:
-  for 상태2 in 상태2의_모든_데이터:
-    for ...:
-      dp[상태1][상태2][...] = Math.max(선택1, 선택2, ...)
-```          
+// state transfer
+for (const state1 of ALL_STATE1) {
+    for (const stat2 of ALL_STATE2) {
+        for (...) {
+            dp[state1][state2][....] = calc_max(choice1, choice2, ...);
+        }
+    }
+}
+```
 
 - 상태 순회 순서는 초기값이 있는 위치와 최종 결과가 있는 위치를 고려하여 결정
 

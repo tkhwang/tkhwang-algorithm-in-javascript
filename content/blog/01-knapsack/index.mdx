@@ -1,0 +1,81 @@
+---
+title: 01-Knapsack
+slug: 01-knapsack
+description: 정렬되지 않은 배열에서 HashSet을 사용하여 O(n) 시간 복잡도로 가장 긴 연속된 숫자 시퀀스 찾기
+date: 2025-10-03
+lastUpdated: 2025-10-03
+tags:
+  - dynamic-programming
+---
+
+### Problem
+
+* [0 - 1 Knapsack Problem](https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1)
+* 가장 유명한 동적 계획법 문제중의 하나인 01-knapsack (배낭) 문제.
+  * 배낭에는 W 무게까지 넣을 수 있고, 물건은 총 N개. 각각 무게와 가치가 다름.
+  * 배낭에 넣을 수 있는 물건의 최대 가치를 구하는 문제.
+
+### Reasoning
+
+* 이런 문제는 어떻게 풀어야 할까 ?
+   * 특별한 방법 보다는 전체 다 해봐야할 것 같다. => 동적계획법 적용해보자.
+* [Dynamic Programming 프레임](../../frame/frame-dynamic-programming/)
+   * 선택:  i번째 물건을 가방에 넣는 경우, 넣지 않는 경우
+   * 상태:  `dp[i][w]`는 i번째 물건까지 고려했을때, w 무게까지 넣을 수 있을 때의 최대 가치를 의미
+       * 그렇다면 최종 답은 `dp[N][W]` (index 는 하기 나름이지만 편의상 one-indexed)
+   * 상태 전이 방정식
+```
+  for (let i = 1; i <= N; i += 1) {   // 물건에 대한 상태는 [1, ..., N] -> (i번째) 무게는 weights[i-1], 가치는 values[i-1]
+    for (let w = 1; w <= W; w += 1) { // 무게에 대한 상태는 [1, ..., W]
+
+      // i번째 물건을 가방에 넣을 수 없는 경우 (i번째 물건의 무게가 가방보다 더 큰 경우)
+      if (w - weights[i-1] < 0) {
+        dp[i][w] = dp[i-1][w];  // i번째 물건을 넣지 못했으니깐 (i-1)번째 물건에 현재 무게 w 까지 넣을 수 있는 최대 가치를 그대로 가져옴
+
+      // i번째 물건을 가방에 넣을 수 있는 경우
+      } else {
+        dp[i][w] = Math.max(
+          // i번째 물건을 가방에 넣지 않는 경우
+          dp[i-1][w],
+          // i번째 물건을 가방에 넣는 경우
+          dp[i-1][w - weights[i-1]] + values[i-1]  // i번째 물건 (weights[i-1], values[i-1])을 넣었을 때에는 
+                                                   // (i-1)번째 물건 w - weights[i-1] 무게까지 넣을 수 있는 가치 + i번째 물건의 가치 values[i-1]
+        )
+    }
+  }
+```
+
+### Solution
+
+```typescript
+/**
+ * @param {number} W
+ * @param {number[]} val
+ * @param {number[]} wt
+ * @returns {number}
+ */
+
+class Solution {
+    knapsack(W, val, wt) {
+        const N = val.length;
+        
+        const dp = Array(N + 1).fill(null).map(() => Array(W + 1).fill(0));
+
+        for (let i = 1; i <= N; i += 1) {
+            for (let w = 1; w <= W; w += 1) {
+                if (w - wt[i-1] < 0) {
+                    dp[i][w] = dp[i-1][w];
+                } else {
+                    dp[i][w] = Math.max(
+                        dp[i-1][w],
+                        dp[i-1][w - wt[i-1]] + val[i-1]
+                        )
+                }
+            }
+        }        
+        
+        return dp[N][W];
+    }
+}
+```
+
