@@ -5,7 +5,7 @@ import Seo from '@components/seo.astro'
 import Spacer from '@components/spacer.astro'
 import { FRONTMATTER_TAGS } from '@constants'
 import Layout from '@layouts/layout.astro'
-import { defaultDateFormat, getPostsByTag } from '@utils'
+import { defaultDateFormat, getPostsByTag, sortDesc } from '@utils'
 import { getCollection } from 'astro:content'
 
 /**
@@ -13,7 +13,7 @@ import { getCollection } from 'astro:content'
  * 2. Each tag page will have a list of entries associated with that tag.
  */
 export async function getStaticPaths() {
-	const entries = await getCollection('blog')
+	const entries = sortDesc(await getCollection('blog'))
 
 	const result = []
 

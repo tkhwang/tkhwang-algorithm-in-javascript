@@ -4,7 +4,7 @@ import Seo from '@components/seo.astro'
 import Layout from '@layouts/layout.astro'
 import Prose from '@components/prose.astro'
 import { SITE } from '@constants'
-import { defaultDateFormat, isoDateFormat } from '@utils'
+import { defaultDateFormat, isoDateFormat, sortDesc } from '@utils'
 import SkipNavContent from '@components/a11y/skip-nav-content.astro'
 import Spacer from '@components/spacer.astro'
 import Aside from '@components/aside.astro'
@@ -13,9 +13,9 @@ import Playground from '@components/playground.astro'
 import Giscus from '@components/giscus.astro'
 
 export async function getStaticPaths() {
-	const entries = await getCollection('frame')
+	const entries = sortDesc(await getCollection('frame'))
 
-	return entries.map(entry => ({
+	return entries.map((entry) => ({
 		params: {
 			frame: entry.data.slug,
 		},
@@ -43,20 +43,24 @@ const { Content } = await render(entry)
 		<Prose>
 			<h1 class="mb-0! text-xl md:text-2xl text-highlight" data-pagefind-meta="title">{frame.title}</h1>
 			<Spacer axis="vertical" size={4} />
-			{frame.description ? (
-				<>
-					<p class="text-faded">{frame.description}</p>
-					<Spacer axis="vertical" size={4} />
-				</>
-			) : null}
+			{
+				frame.description ? (
+					<>
+						<p class="text-faded">{frame.description}</p>
+						<Spacer axis="vertical" size={4} />
+					</>
+				) : null
+			}
 			<div class="text-faded">
 				{defaultDateFormat(frame.date)}
-				{frame.tags.length ? (
-					<>
-						{' — '}
-						<TagLinks tags={frame.tags} />
-					</>
-				) : null}
+				{
+					frame.tags.length ? (
+						<>
+							{' — '}
+							<TagLinks tags={frame.tags} />
+						</>
+					) : null
+				}
 			</div>
 			<Spacer axis="vertical" size={12} />
 			<Content components={{ Aside, Playground }} />
