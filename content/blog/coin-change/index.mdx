@@ -1,0 +1,79 @@
+---
+title: 322. Coin Change
+slug: coin-change
+description: 동적 계획법을 사용하여 배낭 무게 제한 내에서 물건들의 최대 가치를 구하는 01-Knapsack 문제
+date: 2025-10-03
+lastUpdated: 2025-10-03
+tags:
+  - dynamic-programming
+---
+
+### Problem
+
+* [LeetCode 322. Coin Change](https://leetcode.com/problems/coin-change/)
+
+
+### Reasoning
+
+* 이런 문제는 어떻게 풀어야 할까 ?
+   * 특별한 방법 보다는 전체 다 해봐야할 것 같다. => 동적계획법 적용해보자.
+* [Dynamic Programming 프레임](../../frame/frame-dynamic-programming/)
+  * 선택 :  i번째 동전을 사용하는 경우, 사용하지 않는 경우
+  * 상태 :  `dp[i]`는 i번째 동전까지 고려했을때, 최소 동전 갯수
+
+### Approach
+
+* `dp[i]`는 i번째 동전까지 고려했을때, 최소 동전 갯수
+  - 최종 최소값을 찾아야 하므로 default 값은 최소값에서 가장 먼 값인 `Infinity` 로 초기화
+  - `dp[0] = 0` 은 0 원을 만드는 경우는 0 개의 동전이 필요하므로 0 으로 초기화
+```typescript
+    const dp = Array(amount + 1).fill(Infinity);
+    dp[0] = 0;
+```
+
+* 가장 중요한 부분 
+
+```typescript
+    // bottom up 으로 순회 [1, ..., amount] (상태)
+    for (let i = 1; i <= amount; i += 1) {
+      // coin 은 상태는 아니지만 경우의 수를 체크하기 위해서 순회
+        for (const coin of coins) {
+            if (i - coin < 0) continue;  // 기준 값보다 잔돈 금액이 더 큰 경우, 동전 교환 할 수 없음.
+
+            dp[i] = Math.min(
+                dp[i],           // i번째 동정 사용하지 않는 경우
+                1 + dp[i-coin]   // i 번째 동전을 사용하는 경우
+                                 // - 1 개의 동전을 사용하고, i-coin 번째 동전까지 고려했을때의 최소 동전 갯수
+            )
+        }
+    }
+```
+
+
+### Solution
+
+```typescript
+/**
+ * @param {number[]} coins
+ * @param {number} amount
+ * @return {number}
+ */
+var coinChange = function(coins, amount) {
+    const dp = Array(amount + 1).fill(Infinity);  
+    dp[0] = 0;
+
+    for (let i = 1; i <= amount; i += 1) {
+        for (const coin of coins) {
+            if (i - coin < 0) continue;
+
+            dp[i] = Math.min(
+                dp[i],
+                1 + dp[i-coin]
+            )
+        }
+    }
+
+    return dp[amount] === Infinity ? -1 : dp[amount];
+};
+```
+
