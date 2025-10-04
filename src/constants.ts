@@ -84,6 +84,7 @@ export const FRONTMATTER_TAGS = [
 	'hash',
 	'linked-list',
 	'heap',
+	'binary-search',
 ] as const
 
 export type FrontmatterTag = typeof FRONTMATTER_TAGS[number]

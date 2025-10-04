@@ -1,0 +1,74 @@
+---
+title: 875. Koko Eating Bananas
+slug: koko-eating-bananas
+description: 이진 탐색으로 코코가 주어진 h 시간 안에 모든 바나나를 먹을 수 있는 최소 속도를 찾는 방법 정리
+date: 2025-10-04
+lastUpdated: 2025-10-04
+tags:
+  - binary-search
+---
+
+### Problem
+
+* [LeetCode 875. Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/)
+* Binary search 를 이런 방식으로 사용될 수 있다는 것을 처음 알게해준 문제
+* koko 원숭이가 주어진 [h 시간내]에 바나나를 모두 먹을 수 있는 최소 속도를 찾는 문제
+
+### Reasoning
+
+* 문제를 풀기 위해서 우리가 변경하는 찾아야 하는 값은 시간당 몇 개의 바나나를 먹어야지 h 시간내에 모든 바나나를 먹을 수 있는가 ?
+   - 즉, 바바나를 먹는 속도를 찾아야 한다.
+   - 느리기 먹는다면 h 시간내에 주어진 바나나를 다 먹지 못할 수 있음.
+   - 빠르게 먹는다면 h 시간내에 주어진 바나나를 다 먹을 수 있음.
+   - binary search 를 이용해서 최소 속도를 찾아야 한다.
+* left 는 가장 느리기 먹는 속도 `1`
+* right는 가장 빠르게 먹는 속도 `10**9
+
+
+### Approach
+
+* 주어진 속도 `speed` 로 h 시간내에 모든 바나나를 먹을 수 있는지 체크
+* 바나나 먹는 속도 speed = # of bananas / time 
+* 바바나 다 먹는 시간 time = # of bananas / speed
+* 바바나가 열린 piles 를 순회하면서 각 바나나 송이의 모든 바나나를 먹는데 걸리는 시간을 모두 합해서 h 시간내에 모든 바나나를 먹을 수 있는지 체크
+
+```typescript
+    const isOK = (speed) => {
+        let times = 0;
+        for (const pile of piles) {
+            times += Math.ceil(pile/speed);
+        }
+        return times <= h;
+    }
+```
+
+* Binary search 를 이용해서 left = 1, right = 10**9 사이에서 최소 속도를 찾는다.
+
+### Solution
+
+```typescript
+/**
+ * @param {number[]} piles
+ * @param {number} h
+ * @return {number}
+ */
+var minEatingSpeed = function(piles, h) {
+    const isOK = (speed) => {
+        let times = 0;
+        for (const pile of piles) {
+            times += Math.ceil(pile/speed);
+        }
+        return times <= h;
+    }
+
+    let left = 1;
+    let right = 10 ** 9;
+
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2);
+        if (isOK(mid)) right = mid - 1;
+        else left = mid + 1;
+    }
+    return left;
+};
+```
