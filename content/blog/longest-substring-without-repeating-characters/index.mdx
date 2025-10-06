@@ -1,0 +1,53 @@
+---
+title: 3. Longest Substring Without Repeating Characters
+slug: longest-substring-without-repeating-characters
+description: 해시맵으로 문자의 마지막 위치를 추적하며 중복 없는 가장 긴 부분 문자열을 찾는 슬라이딩 윈도우 정리
+date: 2025-10-06
+lastUpdated: 2025-10-06
+tags:
+  - sliding-window   
+---
+
+### Problem
+
+* [LeetCode 3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+* 중복되지 않는 가장 긴 부분 문자열 substring 길이를 구하는 문제
+
+### Reasoning
+
+* 어떤 조건을 만족하는 sub-array (연속)를 찾는 문제는 sliding window 가 가능한지 체크해봐야한다. 
+    * sub-sequence 는 불연속이라서 주로 dynamic programming 으로 풀어야 한다.
+
+### Frame
+
+[Sliding Window 프레임](../../frame/sliding-window/) 
+
+### Solution
+
+```typescript
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function(s) {
+    const N = s.length;
+
+    const window = new Map();
+    let max = 0;
+
+    let left = 0;
+    for (let right = 0; right < N; right += 1) {
+        const cur = s[right];
+        window.set(cur, (window.get(cur) ?? 0) + 1);
+        
+        while (window.get(cur) > 1) {
+            const leftNum = s[left];
+            window.set(leftNum, window.get(leftNum) - 1);
+            left += 1;
+        }
+
+        if (max < right - left + 1) max = right - left + 1;
+    }
+    return max;
+};
+```
