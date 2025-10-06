@@ -88,6 +88,7 @@ export const FRONTMATTER_TAGS = [
 	'tree',
 	'graph-dfs',
 	'sliding-window',
+	'tree-bfs',
 ] as const
 
 export type FrontmatterTag = typeof FRONTMATTER_TAGS[number]

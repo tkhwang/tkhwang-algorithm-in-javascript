@@ -1,0 +1,41 @@
+---
+title: Tree BFS
+slug: tree-bfs
+description: 큐를 사용해 레벨별로 노드를 방문하며 공통 로직을 재사용하는 트리 BFS 사고 흐름 정리
+date: 2025-10-06
+lastUpdated: 2025-10-06
+tags:
+  - tree-bfs
+---
+
+
+```typescript
+let fn = root => {
+    let queue = [root];
+    let result = 0;
+
+    while (queue.length) {
+        // do logic for current level
+
+        let stage = [];
+
+        for (let i = 0; i < queue.length; i++) {
+            const cur = queue.shift();
+
+            // do logic
+            stage.push(cur.val);
+
+            if (node.left) queue.push(node.left);
+            if (node.right) queue.push(node.right);
+        }
+
+        // do logic for current level (stage)
+    }
+
+    return result;
+}
+```
+
+### Reference
+
+- [코딩 인터뷰를 위한 알고리즘 치트시트](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=301923855&start=slayer)
