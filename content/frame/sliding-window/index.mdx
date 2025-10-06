@@ -1,0 +1,38 @@
+---
+title: Sliding Window
+slug: sliding-window
+description: 연속된 sub-array 문제에서 창을 확장·축소하며 조건을 맞추는 슬라이딩 윈도우 사고 흐름 정리
+date: 2025-10-06
+lastUpdated: 2025-10-06
+tags:
+  - sliding-window
+---
+
+* 주로 연속된 sub-array 를 찾는 문제에 적용된다.
+* window expand 조건 : right 를 증가
+* window shrink 조건 : 현재 window 에서 조건 체크해서 만족하는 동안에 left 를 증가시켜 window 를 shirink 시킴.
+
+```typescript
+let fn = arr => {
+    let ans = 0;
+    let curr = 0;
+
+    let left = 0;
+    for (let right = 0; right < arr.length; right += 1) {
+        // do logic here to add arr[right] to curr
+
+        while (WINDOW_CONDITION_BROKEN or WINDOW_CONDITION_MET) {
+            // remove arr[left] from curr
+            left += 1;
+        }
+
+        // update ans
+    }
+
+    return ans;
+}
+```
+
+### Reference
+
+- [코딩 인터뷰를 위한 알고리즘 치트시트](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=301923855&start=slayer)

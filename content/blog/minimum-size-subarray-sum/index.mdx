@@ -1,0 +1,57 @@
+---
+title: 209. Minimum Size Subarray Sum
+slug: minimum-size-subarray-sum
+description: 슬라이딩 윈도우로 합이 target 이상이 되는 최소 길이 부분 배열을 찾는 풀이 정리
+date: 2025-10-06
+lastUpdated: 2025-10-06
+tags:
+  - sliding-window   
+---
+
+### Problem
+
+* [LeetCode 209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/)
+* 주어진 target 값을 만족하는 최소 길이의 부분 배열을 찾는 문제
+
+### Reasoning
+
+* 어떤 조건을 만족하는 sub-array (연속)를 찾는 문제는 sliding window 가 가능한지 체크해봐야한다. 
+    * sub-sequence 는 불연속이라서 주로 dynamic programming 으로 풀어야 한다.
+
+
+### Frame
+
+[Sliding Window 프레임](../../frame/sliding-window/)
+* window expand 조건 : right 를 증가 
+* window shrink 조건 : 현재 window 에서 조건 체크해서 만족하는 동안에 left 를 증가시켜 window 를 shirink 시킴.
+
+### Solution
+
+```typescript
+/**
+ * @param {number} target
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minSubArrayLen = function(target, nums) {
+    const N = nums.length;
+
+    let min = Infinity;
+    let sum = 0;
+    let left = 0;
+    for (let right = 0; right < N; right += 1) {
+        const cur = nums[right];
+        sum += cur;
+
+        while (sum >= target) {
+            if (min > right - left + 1) min = right - left + 1;
+
+            const leftNum = nums[left];
+            sum -= leftNum;
+            left += 1;
+        }
+    }
+
+    return min === Infinity ? 0 : min;
+};
+```

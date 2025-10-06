@@ -87,6 +87,7 @@ export const FRONTMATTER_TAGS = [
 	'binary-search',
 	'tree',
 	'graph-dfs',
+	'sliding-window',
 ] as const
 
 export type FrontmatterTag = typeof FRONTMATTER_TAGS[number]
