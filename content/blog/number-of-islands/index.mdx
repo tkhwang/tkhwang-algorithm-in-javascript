@@ -1,0 +1,68 @@
+---
+title: 200. Number of Islands
+slug: number-of-islands
+description: 격자를 순회하며 땅을 찾으면 DFS 로 연결된 땅을 물로 바꿔 섬의 개수를 세는 방법 정리
+date: 2025-10-06
+lastUpdated: 2025-10-06
+tags:
+  - dfs
+---
+
+### Problem
+
+* [LeetCode 200. Number of Islands](https://leetcode.com/problems/number-of-islands/)
+* 땅은 '1', 물은 '0', 섬의 갯수를 찾는 문제.
+
+### Reasoning
+
+* 섬의 정의는 서로 연결된 땅 '1'
+* 전체 맵을 순회를 돌면서 땅 '1' 을 찾는다.
+    * 땅 '1'을 찾았으면, 찾은 섬의 갯수를 늘리고
+    * dfs 로 이와 연결된 땅 (섬)을 모두 찾고, 이들을 invalidate 시킨다.
+
+### Solution
+
+
+```typescript
+/**
+ * @param {character[][]} grid
+ * @return {number}
+ */
+var numIslands = function(grid) {
+    const [ ROWS, COLS ] = [ grid.length, grid[0].length ];
+
+    const LAND = "1";
+    const WATER = "0";
+
+    let found = 0;
+
+    const directions = [ [1,0], [-1, 0], [0,1], [0, -1] ];
+    const isValid = (r,c) => !(r < 0 || r >= ROWS || c < 0 || c >= COLS);
+
+    const dfs = (r, c) => {
+        grid[r][c] = WATER;
+
+        for (const [ dR, dC ] of directions) {
+            const newR = r + dR;
+            const newC = c + dC;
+
+            if (!isValid(newR, newC)) continue;
+            if (grid[newR][newC] !== LAND) continue;
+
+            dfs(newR, newC);
+        }
+    }
+
+    for (let r = 0; r < ROWS; r += 1) {
+        for (let c = 0; c < COLS; c += 1) {
+            const cur = grid[r][c];
+            if (cur === LAND) {
+                found += 1;
+                dfs(r, c)
+            }
+        }
+    }
+
+    return found;
+};
+```
