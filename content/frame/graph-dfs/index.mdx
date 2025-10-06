@@ -1,0 +1,35 @@
+---
+title: Graph DFS
+slug: graph-dfs
+description: 격자/그래프에서 방문 체크와 4방향 이동을 묶어 DFS 패턴을 빠르게 떠올리기 위한 템플릿
+date: 2025-10-06
+lastUpdated: 2025-10-06
+tags:
+  - graph-dfs
+---
+
+
+
+
+```typescript
+    const [ ROWS, COLS ] = [ grid.length, grid[0].length ];
+
+    const directions = [ [1,0], [-1, 0], [0,1], [0, -1] ];
+    const isValid = (r,c) => !(r < 0 || r >= ROWS || c < 0 || c >= COLS);
+
+    const dfs = (r, c) => {
+        for (const [ dR, dC ] of directions) {
+            const newR = r + dR;
+            const newC = c + dC;
+
+            if (!isValid(newR, newC)) continue;
+            // check validity
+
+            dfs(newR, newC);
+        }
+    }
+```
+
+### Reference
+
+- [코딩 인터뷰를 위한 알고리즘 치트시트](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=301923855&start=slayer)
