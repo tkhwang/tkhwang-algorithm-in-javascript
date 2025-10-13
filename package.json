@@ -12,7 +12,8 @@
 		"astro": "astro",
 		"lint": "eslint",
 		"lint:fix": "eslint --fix",
-		"assistant": "tsx ./scripts/assistant.ts"
+		"assistant": "tsx ./scripts/assistant.ts",
+		"create:blog": "tsx ./scripts/create-blog.ts"
 	},
 	"dependencies": {
 		"@astrojs/mdx": "^4.3.3",
