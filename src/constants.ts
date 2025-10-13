@@ -91,6 +91,8 @@ export const FRONTMATTER_TAGS = [
 	'tree-bfs',
 	'tree-dfs',
 	'backtracking',
+	'array',
+	'two-pointers',
 ] as const
 
 export type FrontmatterTag = typeof FRONTMATTER_TAGS[number]

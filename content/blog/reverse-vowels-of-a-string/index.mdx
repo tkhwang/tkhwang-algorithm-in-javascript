@@ -1,0 +1,52 @@
+---
+title: 345. Reverse Vowels of a String
+slug: number-of-islands
+description: 문자열 양 끝에서 모음을 찾는 두 포인터로 교환하며 모음만 역순으로 만드는 풀이 정리
+date: 2025-10-13
+lastUpdated: 2025-10-13
+tags:
+  - 'two-pointers'
+---
+
+### Problem
+
+* [LeetCode 345. Reverse Vowels of a String](https://leetcode.com/problems/reverse-vowels-of-a-string/)
+* 문자열 중에서 모음만 순서를 반대로 뒤집는 문제.
+
+### Reasoning
+
+* 모음만 순서를 반대로 뒤집는 문제.
+* 여러가지 방법이 있겠지만 two pointers 로 풀이 : `left`, `right` 포인터 이용
+* 양쪽 끝에서 우선 모을 찾는다.
+* 양쪽을 찾았다면 두 모음을 교환한다.
+* 양쪽 포인터를 중앙으로 이동시킨다.
+* 양쪽 포인터가 만날 때까지 반복한다.
+
+### Solution
+
+```typescript
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseVowels = function(s) {
+    const array = s.split("");
+    const N = array.length;
+
+    const vowels = new Set(['a','e','i','o','u','A','E','I','O','U']);
+
+    let left = 0;
+    let right = N - 1;
+
+    while (left < right) {
+        while (left < right && !vowels.has(array[left])) left += 1;
+        while (left < right && !vowels.has(array[right])) right -= 1;
+
+        [ array[left], array[right] ] = [ array[right], array[left] ];
+        left += 1;
+        right -= 1;
+    }
+
+    return array.join("");
+}
+```
