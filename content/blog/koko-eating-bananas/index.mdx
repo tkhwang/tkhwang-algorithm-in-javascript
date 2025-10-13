@@ -8,14 +8,12 @@ tags:
   - binary-search
 ---
 
-### Problem
-
+### 문제 설명
 * [LeetCode 875. Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/)
 * Binary search 를 이런 방식으로 사용될 수 있다는 것을 처음 알게해준 문제
 * koko 원숭이가 주어진 [h 시간내]에 바나나를 모두 먹을 수 있는 최소 속도를 찾는 문제
 
-### Reasoning
-
+### 풀이 아이디어
 * 문제를 풀기 위해서 우리가 변경하는 찾아야 하는 값은 시간당 몇 개의 바나나를 먹어야지 h 시간내에 모든 바나나를 먹을 수 있는가 ?
    - 즉, 바바나를 먹는 속도를 찾아야 한다.
    - 느리기 먹는다면 h 시간내에 주어진 바나나를 다 먹지 못할 수 있음.
@@ -25,8 +23,7 @@ tags:
 * right는 가장 빠르게 먹는 속도 `10**9
 
 
-### Approach
-
+### 해결 전략
 * 주어진 속도 `speed` 로 h 시간내에 모든 바나나를 먹을 수 있는지 체크
 * 바나나 먹는 속도 speed = # of bananas / time 
 * 바바나 다 먹는 시간 time = # of bananas / speed
@@ -44,8 +41,7 @@ tags:
 
 * Binary search 를 이용해서 left = 1, right = 10**9 사이에서 최소 속도를 찾는다.
 
-### Solution
-
+### 구현
 ```typescript
 /**
  * @param {number[]} piles

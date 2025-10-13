@@ -8,17 +8,14 @@ tags:
   - stack
 ---
 
-### Problem
-
+### 문제 설명
 * [LeetCode 155. Min Stack](https://leetcode.com/problems/min-stack/)
 
-### Reasoning
-
+### 풀이 아이디어
 - Stack 인데, `getMin()` method 로 `O(1)` 시간에 최소값을 return 해야 함.
 - 약간 tricky 하긴 한데, push 를 할때 최소값을 계산해서 값과 함께 `[val, min]`으로 저장
 
-### Solution
-
+### 구현
 ```typescript
 class MinStack {
     private stack : number[][]

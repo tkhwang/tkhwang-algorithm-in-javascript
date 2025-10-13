@@ -8,19 +8,16 @@ tags:
   - tree
 ---
 
-### Problem
-
+### 문제 설명
 * [LeetCode 104. Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
 * tree 의 최대 깊이를 구하는 문제.
 
-### Reasoning
-
+### 풀이 아이디어
 * tree 의 dfs 순회 시에는 전위/중위/후위 순회 중에서 무엇을 써야하는지 고민해야 함.
     - 전위는 top-down
     - 후위는 bottom-up 으로 bottom 까지 내려간 후 재귀가 풀리면서 계산됨.
 
-### Solution
-
+### 해결 전략
 * 이 문제는 bottom 의 null node 에서는 depth 0 반환하고, 그 위에 +1 반환하면 bottom-up 계산 가능함.
 * 한 node 에서는 depth 계산 방법
   - child 의 left, right 의 depth 를 구하면 이번 node 의 dpeth 는 Math.max(left, right) + 1 이 됨.

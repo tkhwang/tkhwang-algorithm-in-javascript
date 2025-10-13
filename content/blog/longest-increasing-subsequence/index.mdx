@@ -8,13 +8,11 @@ tags:
   - dynamic-programming
 ---
 
-### Problem 
-
+### 문제 설명
 * [LeetCode 300. Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
 
 
-### Reasoning
-
+### 풀이 아이디어
 ```
              1   2 3      4
 nums = [10,9,2,5,3,7,101,18]
@@ -27,12 +25,10 @@ nums = [10,9,2,5,3,7,101,18]
       - (i-1)번째까지의 LIS 가 있다면 (i)번째 LIS 를 구할 수 있는가 ?
 - `dp[i]`는 `(i)`번째 숫자에서 가장 긴 increasing subsequence 의 길이를 의미
 
-### Frame
-
+### 해결 전략
 [Dynamic Programming 프레임](../../frame/frame-dynamic-programming/)
 
-### Solution
-
+### 구현
 ```typescript
 /**
  * @param {number[]} nums

@@ -8,14 +8,12 @@ tags:
   - heap
 ---
 
-### Problem
-
+### 문제 설명
 - [LeetCode 347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
 - 나에게 **Heap** , **Priority Queue** 의 유용함을 알게 해준 첫번째 문제.
 
 
-### Reasoning
-
+### 풀이 아이디어
 * 아래 구현은 leetcode 에서 기본 제공하는 `MinPriorityQueue` 을 이용해서 `minHeap`을 구현한 것이라서 이 부분은 달라질 수 있음.
 * 가장 많이 나온 top K 번째 숫자를 구하기 위해서 
 * size K 인 minHeap 을 만들어서 (`maxHeap` 이 아님)
@@ -26,8 +24,7 @@ tags:
 * 최종 minHeap 에서 값을 추출하면 가장 많이 나온 top K 번째 숫자를 구할 수 있다.
 
 
-### Solution
-
+### 구현
 ```typescript
 /**
  * @param {number[]} nums

@@ -8,13 +8,10 @@ tags:
   - hash
 ---
 
-### Problem
-
+### 문제 설명
 - [LeetCode 1. Two Sum](https://leetcode.com/problems/two-sum/)
 
-### Reasoning
-
- 
+### 풀이 아이디어
 - 최초 leetcode 입문해서 놀랐던 문제. one path 로 할 수 있다구 ?
 - Array 에서 숫자를 순회하면서 hash map 에 `[num, index]` 를 저장
 - 현재 숫자와 합해서 target 을 만들어야 하므로 내가 찾아야 하는 숫자는 (target - num)
@@ -22,8 +19,7 @@ tags:
 - 있다면 빙고
 - 없다면 다음을 위해서 hash map 에 `[num, index]` 를 저장
 
-### Solution
-
+### 구현
 ```typescript
 /**
  * @param {number[]} nums

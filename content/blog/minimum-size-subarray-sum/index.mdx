@@ -8,25 +8,21 @@ tags:
   - sliding-window   
 ---
 
-### Problem
-
+### 문제 설명
 * [LeetCode 209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/)
 * 주어진 target 값을 만족하는 최소 길이의 부분 배열을 찾는 문제
 
-### Reasoning
-
+### 풀이 아이디어
 * 어떤 조건을 만족하는 sub-array (연속)를 찾는 문제는 sliding window 가 가능한지 체크해봐야한다. 
     * sub-sequence 는 불연속이라서 주로 dynamic programming 으로 풀어야 한다.
 
 
-### Frame
-
+### 해결 전략
 [Sliding Window 프레임](../../frame/sliding-window/)
 * window expand 조건 : right 를 증가 
 * window shrink 조건 : 현재 window 에서 조건 체크해서 만족하는 동안에 left 를 증가시켜 window 를 shirink 시킴.
 
-### Solution
-
+### 구현
 ```typescript
 /**
  * @param {number} target

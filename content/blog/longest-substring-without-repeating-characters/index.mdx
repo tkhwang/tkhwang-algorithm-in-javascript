@@ -8,22 +8,18 @@ tags:
   - sliding-window   
 ---
 
-### Problem
-
+### 문제 설명
 * [LeetCode 3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 * 중복되지 않는 가장 긴 부분 문자열 substring 길이를 구하는 문제
 
-### Reasoning
-
+### 풀이 아이디어
 * 어떤 조건을 만족하는 sub-array (연속)를 찾는 문제는 sliding window 가 가능한지 체크해봐야한다. 
     * sub-sequence 는 불연속이라서 주로 dynamic programming 으로 풀어야 한다.
 
-### Frame
-
+### 해결 전략
 [Sliding Window 프레임](../../frame/sliding-window/) 
 
-### Solution
-
+### 구현
 ```typescript
 /**
  * @param {string} s
