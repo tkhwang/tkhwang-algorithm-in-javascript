@@ -1,0 +1,60 @@
+---
+title: 98. Validate Binary Search Tree
+slug: validate-binary-search-tree
+description: ...
+date: 2025-10-14
+lastUpdated: 2025-10-14
+tags:
+  - graph-dfs
+---
+
+### 문제 설명
+
+* [LeetCode 345. Reverse Vowels of a String](https://leetcode.com/problems/reverse-vowels-of-a-string/)
+*  주어진 이진 탐색 트리가 맞는지 확인하는 문제.
+
+### 해결 전략
+
+* [트리 DFS](../../frame/tree-dfs/) 
+* BST 의 특성 중의 하나는 inorder 순회 시 오름차순으로 정렬된 값이 나온다는 점.
+
+### 풀이 아이디어
+
+* 이 특성을 이용해서 inorder 순회 시 prv node 와 현재 node 의 값이 오름차순으로 정렬되는지 확인
+
+### 구현
+
+```typescript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isValidBST = function(root) {
+    let prv = null;
+
+    const dfs = (node) => {
+        if (!node) return true;
+
+        const left = dfs(node.left);
+
+        if (prv) {
+            if (!(prv.val < node.val)) return false;
+        }
+        prv = node;
+
+        const right = dfs(node.right);
+
+        return left && right;
+    }
+
+    return dfs(root)
+};
+```
