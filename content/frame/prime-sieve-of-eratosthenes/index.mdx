@@ -1,0 +1,54 @@
+---
+title: Prime Sieve of Eratosthenes
+slug: prime-sieve-of-eratosthenes
+description: 2부터 √n까지 소수의 배수를 지우며 소수 여부를 빠르게 판별하는 에라토스테네스 체 정리.
+date: 2025-10-06
+lastUpdated: 2025-10-06
+tags:
+  - prime-sieve-of-eratosthenes
+---
+
+* 생각보다 prime 계산이 중복되는 계산이 많아서 오래 걸림.
+* `Sieve of Eratosthenes` 를 사용하면 빠르게 계산 가능
+* 해당 수가 prime 인지 판별하기 위해서는 `dp` 배열을 이용해서 `dp[i]` 가 `true` 인지 확인하면 됨.
+* prime 이 되기 위해서는 divisor 가 되어야 하므로 갖을 수 있는 최대 값은 `sqrt(n) * sqrt(n) === n` 이므로 `sqrt(n)` 이다.
+* 소수를 찾기 위해서 2부터 `sqrt(n)` 까지 순회를 하면서 소수인지 판별
+    * 만약 `i` (`dp[i]`) 가 true 로서 소수를 찾았다면 이후에 있는 `dp[i]` 값의 배수는 모두 소수가 될 수 없다.
+    * `i` : 소수 
+    * `2*i`, `3*i`, `4*i`, ..., `(i-1)*i` 
+        * 이 부분이 이해하기가 좀 어려운데...
+        * 이 부분은 앞의 소수들의 배수를 지우면서 소수를 찾는 과정에서 지워진 수들이다.
+        * 가령 i = 7 이라면 이전 과정에서 2, 3, 4, 5, 6 의 배수를 지우면서 왔다.
+        * 즉, `2*i`, `3*i`, `4*i`, ..., `(i-1)*i` 는 모두 이전 과정에서 지워진 수들이므로 다시 계산할 필요가 없다.
+        * 이전 계산에서 `i*i` 계산되지 않았으므로 `i*i` 부터 계산하면 된다.
+        * `i*i` 값은 이전 인수 없이 남아 있었던 후보가 된다.
+    * `i*i`, `(i+1)*i`, ... 는 소수가 될 수 없다.
+        * 이 부분을 순회하면서 false 처리해야 함.
+
+
+```typescript
+/**
+ * @param {number} N
+ * @return {number}
+ */
+var countPrimes = function(N) {
+    if (N < 2) return 0;
+
+    const dp = new Array(N).fill(true);
+    dp[0] = false;
+    dp[1] = false;
+
+    for (let i = 2; i * i <= N; i += 1) {
+        if (!dp[i]) continue;
+
+        // found prime
+        for (let j = i * i; j <= N; j += i) {
+            dp[j] = false;
+        }
+    }
+
+    return dp.filter(Boolean).length;
+};
+```
+
+

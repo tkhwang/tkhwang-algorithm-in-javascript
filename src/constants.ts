@@ -93,6 +93,7 @@ export const FRONTMATTER_TAGS = [
 	'backtracking',
 	'array',
 	'two-pointers',
+	'prime-sieve-of-eratosthenes',
 ] as const
 
 export type FrontmatterTag = typeof FRONTMATTER_TAGS[number]
