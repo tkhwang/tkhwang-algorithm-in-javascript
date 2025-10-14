@@ -1,0 +1,90 @@
+---
+title: 392. Is Subsequence
+slug: is-subsequence
+description: 두 문자열에서 첫 번째가 두 번째의 부분 수열인지 투 포인터로 판별하는 두 가지 순회 전략을 정리.
+date: 2025-10-14
+lastUpdated: 2025-10-14
+tags:
+  - "two-pointers"
+---
+
+### 문제 설명
+
+* [LeetCode 392. Is Subsequence](https://leetcode.com/problems/is-subsequence/)
+* 두 개의 문자열이 주어지고, 첫 번째 문자열이 두 번째 문자열의 부분 문자열인지 확인하는 문제.
+
+### 풀이 아이디어
+
+* 그리 어려운 문제는 아니지만 이런 간단한 경우로 깔끔하게 처리를 하려면 어떻게 하는 것이 좋을까 ?
+* 긴 문자열을 순회하면서 체크하는 것이 좋을까 ? 
+* 짧은 문자열을 순회하면서 체크하는 것이 좋을까 ?
+* 두 가지 방법 중에 어떤 방법이 더 좋을까 ?
+
+### 긴 문자열 순회
+
+#### 풀이
+
+- 긴 문자열을 하나씩 순회
+- 짧은 문자열과 비교하면서 같은 문자가 나오면 짧은 문자열의 인덱스를 증가
+- 짧은 문자열의 인덱스가 짧은 문자열의 길이와 같아지면 부분 문자열이 만들어졌다고 판단
+
+#### 구현
+
+```typescript
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isSubsequence = function(s, t) {
+    const NS = s.length;
+    const NT = t.length;
+
+    let indexS = 0;
+
+    for (let indexT = 0; indexT < NT; indexT += 1) {
+        if (s[indexS] === t[indexT]) {
+            indexS += 1;
+
+            // for early return
+            if (indexS >= NS) return true;
+        }
+    }
+
+    return indexS === NS;
+};
+```
+
+### 짧은 문자열 순회
+
+#### 풀이 
+
+- 짧은 문자열을 하나씩 순회
+- 긴 문자열과 비교하면서 같은 문자가 나오면 긴 문자열의 인덱스를 증가
+- 긴 문자열의 인덱스가 긴 문자열의 길이와 같아지면 부분 문자열이 만들어졌다고 판단
+
+#### 구현
+
+```typescript
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isSubsequence = function(s, t) {
+    const NS = s.length;
+    const NT = t.length;
+
+    let indexT = 0;
+
+    for (let indexS = 0; indexS < NS; indexS += 1) {
+        while (indexT < NT && t[indexT] !== s[indexS]) indexT += 1;
+
+        if (indexT === NT) return false;
+
+        indexT += 1;
+    }
+
+    return true;
+};
+```
