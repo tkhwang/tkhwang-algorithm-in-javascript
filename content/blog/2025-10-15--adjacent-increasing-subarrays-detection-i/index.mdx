@@ -1,0 +1,56 @@
+---
+title: 3349. Adjacent Increasing Subarrays Detection I
+slug: adjacent-increasing-subarrays-detection-i
+description: 전체 배열에서 길이 k인 서로 인접한 두 개의 엄격히 증가하는 부분 배열이 동시에 존재하는지 판별하는 문제
+date: 2025-10-15
+lastUpdated: 2025-10-15
+tags:
+  - array
+---
+
+
+### 문제 설명
+* [LeetCode 3349. Adjacent Increasing Subarrays Detection I](https://leetcode.com/problems/adjacent-increasing-subarrays-detection-i/)
+* 전체 배열에서 길이 k인 서로 인접한 두 개의 엄격히 증가하는 부분 배열이 동시에 존재하는지 판별하는 문제
+
+### 풀이 아이디어
+
+* 내용 자체는 어렵지 않은데 어떻게 하면 편안하게 풀 수 있을까 ?
+* 엄격히 증가하는 부분 배열 체크
+    - 왼쪽 -> 오른쪽으로 배열이 구성됨
+    - 오른쪽 -> 왼쪽 순회하면서 해당 위치에서 엄격히 증가하는 부분 배열의 길이를 알수 있음.
+    - 이를 `dp[i]` 에 저장
+* 만족하는 부분 배열이 두 개 존해하는지 체크
+    - `dp[i] >= k` 는 i번째 위치에서 엄격히 증가하는 부분 배열의 길이가 k 이상이라는 의미
+    - `i (dp[i])` 가 만족한다면 이 부분 배열의 사이즈가 k 이므로 다른 부분 배열은 `i + k` 위치에서 만족하는지 체크
+
+## 풀이 
+
+두번째 체크에서 체크 범위를 자세하게 생각해보면
+* `[i, i + k - 1]` 
+* `[i + k, (i + k) + (k - 1)]` = `[i + k, i + 2 * k - 1]`
+* `i + 2 * k - 1 <= N - 1` => `i + 2 * k <= N`
+
+### 구현
+```typescript
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+var hasIncreasingSubarrays = function(nums, k) {
+  const N = nums.length;
+
+  const dp = Array(N).fill(1);
+
+  for (let i = N - 2; i >= 0; i -= 1) {
+    if (nums[i] < nums[i + 1]) dp[i] = dp[i + 1] + 1;
+  }
+
+  for (let j = 0; j + 2 * k <= N; j += 1) {
+    if (dp[j] >= k && dp[j + k] >= k) return true;
+  }
+
+  return false;
+};
+```
