@@ -1,0 +1,42 @@
+---
+title: Backtrack
+slug: backtrack
+description: 가능한 모든 선택지를 재귀적으로 시도하면서 상태를 수정하고 복원해 해답을 찾는 백트래킹의 기본 개념과 패턴
+date: 2025-10-17
+lastUpdated: 2025-10-17
+tags:
+  - backtrack
+---
+
+* 가능한 경우의 수를 모두 try 해보는 방법
+    - 각 선택에 대해서 (1) 선택하는 경우, (2) 선택하지 않는 경우로 나누어서 재귀 호출하므로 `O(2^n)` 시간 복잡도를 가짐.
+    - Memoization 적용하지 않으면 `n=20` 이 거의 한계임.
+    - 문제 조건에서 `n=20` 이하의 경우에는 backtrack 적용해야하는 문제가 많음.
+* 가능한 모두 경우를 탐색하기 위해서 state 를 변경하고
+* **재귀 호출한 다음** 에는 **state 를 다시 복원** 해두어야 다음번 탐색 시에 새로운 변경이 적용될 수 있음.
+
+```typescript
+function backtrack(state) {
+    if (complete(state)) {
+        record(state)
+        return
+    }
+
+    for (const choice of possibleChoices(state)) {
+        // modify state
+        modify(state, choice);
+
+        // visit next state
+        backtrack(state);
+
+        // restore state
+        restore(state, choice);
+    }
+}
+```
+
+
+### Reference
+
+- [LeetCode's Interview Crash Course: Data Structures and Algorithms](https://leetcode.com/explore/interview/card/leetcodes-interview-crash-course-data-structures-and-algorithms/?vacRef=problembanner)
+- [코딩 인터뷰를 위한 알고리즘 치트시트](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=301923855&start=slayer)

@@ -74,7 +74,7 @@ export const HEADER: Header = {
  */
 export const FRONTMATTER_TAGS = [
 	'array',
-	'backtracking',
+	'backtrack',
 	'binary-search',
 	'coding',
 	'dynamic-programming',

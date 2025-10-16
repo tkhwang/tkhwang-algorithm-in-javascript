@@ -1,0 +1,47 @@
+---
+title: 494. Target Sum
+slug: target-sum
+description: 백트래킹으로 각 수에 +/− 부호를 붙이는 모든 조합을 탐색하며 target 합을 만드는 경우의 수를 계산하는 방법 정리
+date: 2025-10-17
+lastUpdated: 2025-10-17
+tags:
+  - backtrack
+---
+
+
+### 문제 설명
+
+* [LeetCode 494. Target Sum](https://leetcode.com/problems/target-sum/)
+* 주어진 nums expression 에서 부호를 바꿔서 target 을 만들 수 있는 경우의 수를 찾는 문제
+
+### 풀이 아이디어
+
+* `1 <= nums.length <= 20` 문제 조건에 사이즈가 `20` 이라면 `O(2^n)` 시간 복잡도까지 가능하므로 backtrack 적용 가능.
+* Backtrack 으로 nums expression 순회하면서 `+num` 적용하는 경우, `-num` 적용하는 경우로 나누어서 재귀 호출.
+
+### 해결 전략
+
+* [Backtrack](../../frame/backtrack/) 
+
+### 구현 
+
+```typescript
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var findTargetSumWays = function(nums, target) {
+    const N = nums.length;
+
+    const sum = nums.reduce((a,b) => a + b, 0);
+
+    const backtrack = (remain, index) => {
+        if (index >= N) return remain === 0 ? 1 : 0;
+
+        return backtrack(remain + nums[index], index + 1) + backtrack(remain - nums[index], index + 1);
+    }
+
+     return backtrack(target, 0);
+};
+```
