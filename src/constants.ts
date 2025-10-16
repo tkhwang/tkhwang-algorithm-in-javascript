@@ -86,6 +86,7 @@ export const FRONTMATTER_TAGS = [
 	'mdx',
 	'open-source',
 	'prime-sieve-of-eratosthenes',
+	'prefix-sum',
 	'set',
 	'sliding-window',
 	'sort',
