@@ -1,0 +1,65 @@
+---
+title: 3350. Adjacent Increasing Subarrays Detection II
+slug: adjacent-increasing-subarrays-detection-ii
+description: 인접한 증가 부분 배열 두 개의 최대 길이를 DP 전처리와 이진 탐색으로 찾아내는 전략과 구현을 정리
+date: 2025-10-16
+lastUpdated: 2025-10-16
+tags:
+  - binary-search
+---
+
+### 문제 설명
+
+* [LeetCode 3350. Adjacent Increasing Subarrays Detection II](https://leetcode.com/problems/adjacent-increasing-subarrays-detection-ii/)
+* 기본 내용은 [3349. Adjacent Increasing Subarrays Detection I](../../blog/adjacent-increasing-subarrays-detection-i/) 와 동일한데 
+그 연장으로 범위 k 의 최대값을 찾는 문제
+
+### 풀이 아이디어
+
+* 이전 문제를 통해서 부분 수열의 길이가 주어지면 그 길이 이상의 엄격히 증각하는 부분 수열이 존재하는데 확인할 수 있음.
+* 그런 길이의 최대값을 찾는 문제
+* binary search 를 이용해서 최대값을 찾는 문제
+
+### 해결 전략
+
+* [Binary Search: 최대값 찾기](../../frame/binary-search/) 
+
+### 구현
+
+```typescript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxIncreasingSubarrays = function(nums) {
+    const N = nums.length;
+
+    let left = 1;
+    let right = N;
+
+    const dp = Array(N + 1).fill(1);
+
+    for (let i = N - 2; i >= 0; i -= 1) {
+        if (nums[i] < nums[i+1]) dp[i] = dp[i+1] + 1;
+    }
+
+    const isOK = (width) => {
+        for (let i = 0; i + 2 * width <= N; i += 1) {
+            if (dp[i] >= width && dp[i + width] >= width) return true;
+        }
+        return false;
+    }
+
+    while (left <= right) {
+        const mid = Math.floor( (left + right) / 2);
+
+        if (isOK(mid)) {
+            left = mid + 1;            
+        } else {
+            right = mid - 1;
+        }
+    }
+
+    return right;
+};
+```
