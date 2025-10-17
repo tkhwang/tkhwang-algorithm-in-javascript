@@ -9,16 +9,16 @@ export const SITE: Record<string, string> = {
 	/**
 	 * Site-wide title
 	 */
-	title: 'Algorithm in JavaScript',
+	title: 'JS 알고리즘: 리트코드 패턴 가이드',
 	/**
 	 * Used on index page and as a fallback if no title is set
 	 */
-	titleDefault: 'Algorithm in JavaScript - LeetCode Solutions & Patterns',
+	titleDefault: 'JS 알고리즘: 리트코드 패턴 가이드',
 	/**
 	 * Used in meta tags, RSS feed, and other places
 	 */
 	description:
-    'Concise JavaScript walkthroughs for LeetCode challenges, highlighting the reasoning bridge from problem statement to working solution.',
+    '리트코드 문제를 자바스크립트로 풀며 패턴과 사고 과정을 짚어주는 안내',
 	/**
 	 * Language used in the <html> tag
 	 */
