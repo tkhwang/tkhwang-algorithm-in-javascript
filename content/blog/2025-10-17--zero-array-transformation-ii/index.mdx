@@ -1,0 +1,80 @@
+---
+title: 3356. Zero Array Transformation II
+slug: zero-array-transformation-ii
+description: Binary search와 Difference Array 판별 함수를 결합해 필요한 최소 query 수를 찾는 방법
+date: 2025-10-17
+lastUpdated: 2025-10-17
+tags:
+  - binary-search
+---
+
+### 문제 설명
+
+* [LeetCode 3356. Zero Array Transformation II](https://leetcode.com/problems/zero-array-transformation-ii/)
+* [3355. Zero Array Transformation I](../../blog/2025-10-17--zero-array-transformation-i/) 문제의 연장선으로 최소 몇 개의 queries 를 적용해야 하는지 찾는 문제
+
+### 풀이 아이디어
+
+* 한번 혹은 누적 query 에 대해서는 [3355. Zero Array Transformation I](../../blog/2025-10-17--zero-array-transformation-i/) 문제와 동일하게 difference array 를 계산해서 판별할 수 있음.
+* 이번 문제는 최소 몇 번의 query 를 해야 zero array 를 만들 수 있는지 최소값을 찾는 문제.
+* **최소값** => 일반화된 binary search 적용 가능한지 항상 체크할 것.
+
+### 해결 전략
+
+* [Binary Search](../../frame/binary-search/) 
+
+### 풀이
+
+* 일반화된 binary search 패턴을 적용하기 위해서는 무엇을 찾아야 하는지 명확히 해야 함.
+    - Query 의 개수를 찾아야 함.
+    - `left` 가장 작은 값은 query 를 적용하지 않는 경우, 0
+    - `right` 가장 큰 값은 query 를 모두 적용한 경우, `queries.length`
+* `isOK()` 함수는 어떻게 구현 ?
+    - 주어진 `mid` 개 query 적용한 경우에 zero array 를 만들 수 있는지를 [3355. Zero Array Transformation I](../../blog/2025-10-17--zero-array-transformation-i/) 방법 적용하여 체크.
+
+### 구현 
+
+```typescript
+/**
+ * @param {number[]} nums
+ * @param {number[][]} queries
+ * @return {number}
+ */
+var minZeroArray = function(nums, queries) {
+    const N = nums.length;
+
+    // number of query
+    let left = 0;
+    let right = queries.length;
+
+    const isOK = (numberOfQuery) => {
+        const diff = Array(N + 1).fill(0);
+    
+        for (let i = 0; i < numberOfQuery; i += 1) {
+            const [ left, right, value ] = queries[i];
+
+            diff[left] += value;
+            diff[right + 1] -= value;
+        }
+
+        let pendingDecrements = 0;
+        for (let i = 0; i < N; i += 1) {
+            pendingDecrements += diff[i];
+            if (pendingDecrements < nums[i]) return false;
+        }
+        return true;
+    }
+
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2);
+
+        // find minimum
+        if (isOK(mid)) {
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
+    return left > queries.length ? -1 : left; 
+};
+```
