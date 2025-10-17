@@ -1,0 +1,31 @@
+---
+title: Difference Array
+slug: difference-array
+description: 구간에 대한 누적 변화를 차분 배열에 기록해 O(N) 시간에 원본 배열을 복원하는 Difference Array 기법 요약
+date: 2025-10-17
+lastUpdated: 2025-10-17
+tags:
+  - difference-array
+---
+
+* `N^2` 으로 계산해야할 것을 
+* 사전에 `difference array` 를 계산해두고 이를 이용해서 `O(N)` 으로 계산할 수 있게 만드는 방법
+
+```typescript
+const differenceArray = Array(N + 1).fill(0);
+// [left, right] apply change
+for (const [ left, right ] of queries) {
+    differenceArray[left] += value
+    differenceArray[right + 1] -= value
+}
+
+// use this difference array to calculate the original array
+for (let i = 0; i < N; i += 1) {
+    // use differenceArray[i], usually compare this with current value nums[i]
+}
+```
+
+
+### Reference
+
+- [difference array](https://leetcode.com/problems/zero-array-transformation-i/editorial/)

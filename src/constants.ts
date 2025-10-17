@@ -77,6 +77,7 @@ export const FRONTMATTER_TAGS = [
 	'backtrack',
 	'binary-search',
 	'coding',
+	'difference-array',
 	'dynamic-programming',
 	'general',
 	'graph-dfs',
