@@ -9,11 +9,11 @@ export const SITE: Record<string, string> = {
 	/**
 	 * Site-wide title
 	 */
-	title: 'JS 알고리즘: 리트코드 패턴 가이드',
+	title: 'Algorithm in JavaScript',
 	/**
 	 * Used on index page and as a fallback if no title is set
 	 */
-	titleDefault: 'JS 알고리즘: 리트코드 패턴 가이드',
+	titleDefault: 'Algorithm in JavaScript: 리트코드 패턴 가이드',
 	/**
 	 * Used in meta tags, RSS feed, and other places
 	 */
@@ -81,6 +81,7 @@ export const FRONTMATTER_TAGS = [
 	'dynamic-programming',
 	'general',
 	'graph-dfs',
+	'greedy',
 	'hash',
 	'heap',
 	'linked-list',
