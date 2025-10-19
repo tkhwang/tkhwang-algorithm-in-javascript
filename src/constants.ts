@@ -5,7 +5,7 @@ export const SITE: Record<string, string> = {
 	/**
 	 * Base URL of your site, used in sitemap generation
 	 */
-	url: 'https://algorithm-in-javascript.netlify.app',
+	url: 'https://algorithm-in-javascript.vercel.app',
 	/**
 	 * Site-wide title
 	 */
