@@ -51,19 +51,19 @@ export const HEADER: Header = {
 	 */
 	internal: [
 		{
-			title: 'Frame',
+			title: '프레임',
 			url: '/frame/',
 		},
 		{
-			title: 'Basic',
-			url: '/blog/type/basic/',
+			title: '기본 문제',
+			url: '/type/basic/',
 		},
 		{
-			title: 'Application',
-			url: '/blog/type/application/',
+			title: '응용 문제',
+			url: '/type/application/',
 		},
 		{
-			title: 'Tags',
+			title: '태그',
 			url: '/tags/',
 		},
 	],
