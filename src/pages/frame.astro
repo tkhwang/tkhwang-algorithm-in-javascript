@@ -18,6 +18,8 @@ const frames = sortDesc(await getCollection('frame'))
 			{
 				frames.map(({ data: frame }) => (
 					<div>
+						<div class="uppercase tracking-wide text-xs font-semibold text-highlight">Frame</div>
+						<Spacer axis="vertical" size={1.5} />
 						<Link variant="highlight" class="font-medium" href={`/frame/${frame.slug}/`}>
 							{frame.title}
 						</Link>
