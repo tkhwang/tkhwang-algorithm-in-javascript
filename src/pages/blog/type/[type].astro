@@ -1,0 +1,57 @@
+---
+import Layout from '@layouts/layout.astro'
+import Seo from '@components/seo.astro'
+import { getCollection } from 'astro:content'
+import SkipNavContent from '@components/a11y/skip-nav-content.astro'
+import { defaultDateFormat, sortDesc, typeLabel } from '@utils'
+import Spacer from '@components/spacer.astro'
+import Link from '@components/link.astro'
+import { FRONTMATTER_TYPES, type FrontmatterType } from '@constants'
+
+export async function getStaticPaths() {
+	return FRONTMATTER_TYPES.map(type => ({
+		params: { type },
+	}))
+}
+
+const typeParam = Astro.params.type
+
+if (!typeParam || !FRONTMATTER_TYPES.includes(typeParam as FrontmatterType)) {
+	throw new Response(null, { status: 404 })
+}
+
+const type = typeParam as FrontmatterType
+const label = typeLabel(type)
+
+const posts = sortDesc(await getCollection('blog', ({ data }) => data.type === type))
+---
+
+<Layout>
+	<Seo slot="seo" title={`${label} Posts`} />
+	<SkipNavContent>
+		<h1 class="sr-only">{label} Posts</h1>
+		<div class="flex gap-10 flex-col">
+			{
+				posts.length > 0 ? (
+					posts.map(({ data: post }) => (
+						<div>
+							<div class="uppercase tracking-wide text-xs font-semibold text-highlight">{typeLabel(post.type)}</div>
+							<Spacer axis="vertical" size={1.5} />
+							<Link variant="highlight" class="font-bold" href={`/blog/${post.slug}/`}>
+								{post.title}
+							</Link>
+							<Spacer axis="vertical" size={2} />
+							<div class="text-subtle text-md md:text-lg">{post.description}</div>
+							<Spacer axis="vertical" size={2} />
+							<div class="text-faded">
+								{defaultDateFormat(post.date)} — {post.tags.join(', ')}
+							</div>
+						</div>
+					))
+				) : (
+					<p class="text-faded">아직 이 타입의 포스트가 없습니다.</p>
+				)
+			}
+		</div>
+	</SkipNavContent>
+</Layout>

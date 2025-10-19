@@ -1,4 +1,4 @@
-import type { FrontmatterTag } from '@constants'
+import type { FrontmatterTag, FrontmatterType } from '@constants'
 import type { AstroIntegration } from 'astro'
 import type { CollectionEntry } from 'astro:content'
 import path from 'node:path'
@@ -60,6 +60,13 @@ export function sortDesc<T extends { data: { date: Date } }>(data: Array<T>) {
  */
 export function capitalize<T extends string>(str: T): Capitalize<T> {
 	return (str.charAt(0).toUpperCase() + str.slice(1)) as Capitalize<T>
+}
+
+/**
+ * Format a frontmatter type for display
+ */
+export function typeLabel(type: FrontmatterType): string {
+	return capitalize(type)
 }
 
 /**

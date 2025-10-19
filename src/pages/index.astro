@@ -4,7 +4,7 @@ import Seo from '@components/seo.astro'
 import { getCollection } from 'astro:content'
 import { Content as Hero } from '@assets/hero.mdx'
 import SkipNavContent from '@components/a11y/skip-nav-content.astro'
-import { defaultDateFormat, sortDesc } from '@utils'
+import { defaultDateFormat, sortDesc, typeLabel } from '@utils'
 import Link from '@components/link.astro'
 import Prose from '@components/prose.astro'
 import Spacer from '@components/spacer.astro'
@@ -37,6 +37,8 @@ const frames = sortDesc(await getCollection('frame')).slice(0, FRAMES_TO_SHOW)
 				{
 					posts.map(({ data: post }) => (
 						<div>
+							<div class="uppercase tracking-wide text-xs font-semibold text-highlight">{typeLabel(post.type)}</div>
+							<Spacer axis="vertical" size={1.5} />
 							<Link variant="highlight" class="font-bold" href={`/blog/${post.slug}/`}>
 								{post.title}
 							</Link>

@@ -51,12 +51,16 @@ export const HEADER: Header = {
 	 */
 	internal: [
 		{
-			title: 'Post',
-			url: '/blog/',
-		},
-		{
 			title: 'Frame',
 			url: '/frame/',
+		},
+		{
+			title: 'Basic',
+			url: '/blog/type/basic/',
+		},
+		{
+			title: 'Application',
+			url: '/blog/type/application/',
 		},
 		{
 			title: 'Tags',
@@ -100,6 +104,9 @@ export const FRONTMATTER_TAGS = [
 ] as const
 
 export type FrontmatterTag = typeof FRONTMATTER_TAGS[number]
+
+export const FRONTMATTER_TYPES = ['basic', 'application'] as const
+export type FrontmatterType = (typeof FRONTMATTER_TYPES)[number]
 
 export const SKIP_NAV_ID = 'skip-to-content'
 
