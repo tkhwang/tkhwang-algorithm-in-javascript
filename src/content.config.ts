@@ -1,10 +1,11 @@
 import { glob } from 'astro/loaders'
 import { defineCollection, z } from 'astro:content'
-import { FRONTMATTER_TAGS } from './constants'
+import { FRONTMATTER_TAGS, FRONTMATTER_TYPES } from './constants'
 
 const zodEnum = <T>(arr: T[]): [T, ...T[]] => arr as [T, ...T[]]
 
 const TAGS_NAMES = [...FRONTMATTER_TAGS]
+const TYPES_NAMES = [...FRONTMATTER_TYPES]
 
 const baseSchema = z.object({
 	title: z.string(),
@@ -19,6 +20,7 @@ const baseSchema = z.object({
 const blog = defineCollection({
 	loader: glob({ pattern: '**/[^_]*.mdx', base: './content/blog' }),
 	schema: baseSchema.extend({
+		type: z.enum(zodEnum(TYPES_NAMES)),
 		tags: z.array(z.enum(zodEnum(TAGS_NAMES))),
 	}),
 })
