@@ -9,20 +9,19 @@ import Link from '@components/link.astro'
 import { FRONTMATTER_TYPES, type FrontmatterType } from '@constants'
 
 export async function getStaticPaths() {
-	return FRONTMATTER_TYPES.map(type => ({
+	return FRONTMATTER_TYPES.map((type) => ({
 		params: { type },
 	}))
 }
 
 const typeParam = Astro.params.type
+const type = FRONTMATTER_TYPES.find((t): t is FrontmatterType => t === typeParam)
 
-if (!typeParam || !FRONTMATTER_TYPES.includes(typeParam as FrontmatterType)) {
+if (!type) {
 	throw new Response(null, { status: 404 })
 }
 
-const type = typeParam as FrontmatterType
 const label = typeLabel(type)
-
 const posts = sortDesc(await getCollection('blog', ({ data }) => data.type === type))
 ---
 
