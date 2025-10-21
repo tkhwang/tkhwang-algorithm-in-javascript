@@ -1,5 +1,5 @@
-# tkhwang-algorithm-in-javascript
+# Algorithm.js
 
 - Framework : Astro
 - Theme : [minimal blog](https://github.com/LekoArts/astro-theme-minimal-blog)
-- Deploy : netlify
+- Deploy : vercel

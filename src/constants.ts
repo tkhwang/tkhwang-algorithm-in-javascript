@@ -9,16 +9,15 @@ export const SITE: Record<string, string> = {
 	/**
 	 * Site-wide title
 	 */
-	title: 'Algorithm in JavaScript',
+	title: 'Algorithm.js',
 	/**
 	 * Used on index page and as a fallback if no title is set
 	 */
-	titleDefault: 'Algorithm in JavaScript: 리트코드 패턴 가이드',
+	titleDefault: 'Algorithm.js | 패턴별 알고리즘 가이드',
 	/**
 	 * Used in meta tags, RSS feed, and other places
 	 */
-	description:
-    '리트코드 문제를 자바스크립트로 풀며 패턴과 사고 과정을 짚어주는 안내',
+	description: 'JavaScript로 리트코드 패턴을 정리하는 알고리즘 가이드. Learn LeetCode patterns in JavaScript with Algorithm.js.',
 	/**
 	 * Language used in the <html> tag
 	 */
@@ -51,19 +50,19 @@ export const HEADER: Header = {
 	 */
 	internal: [
 		{
-			title: '프레임',
+			title: '📘 프레임',
 			url: '/frame/',
 		},
 		{
-			title: '기본 문제',
+			title: '📚 단일 패턴',
 			url: '/type/basic/',
 		},
 		{
-			title: '응용 문제',
+			title: '🚀 복합 패턴',
 			url: '/type/application/',
 		},
 		{
-			title: '태그',
+			title: '주제별 탐색',
 			url: '/tags/',
 		},
 	],
