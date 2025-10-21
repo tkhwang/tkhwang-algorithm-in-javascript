@@ -1,0 +1,62 @@
+---
+title: 274. H-Index
+slug: h-index
+description: 정렬 후 전체 범위를 이진 탐색하며 h-index 조건을 만족하는 최대 값을 찾는 방법
+type: basic
+date: 2025-10-21
+lastUpdated: 2025-10-21
+tags:
+  - general-binary-search
+---
+
+### 문제 설명 
+
+* [LeetCode 274. H-Index](https://leetcode.com/problems/h-index/)
+* 처음 문제를 보면 h가 많아서 뜻이 잘 이해가 안 된다.
+* h-index 는 논문 (h) 개가 적어도 (h) 인용이 된 경우
+
+### 풀이 아이디어
+
+* citations 을 오름차순으로 정렬
+* 논문 인용 횟수를 left = 0, right = max 로 설정한 상태에서 
+* 특정 값에 대해서 citations 를 순회하면서 인용회수를 계산해서 이번의 인용회수가 특정값보다 같거나 크다면 h-index 후보.
+* 이러한 h-index 중에서 최대값을 general binary search 로 찾기
+
+### 해결 전략
+
+* [General binary search](../../frame/general-binary-search/) 
+
+### 구현 
+
+```typescript
+/**
+ * @param {number[]} citations
+ * @return {number}
+ */
+var hIndex = function(citations) {
+    const N = citations.length;
+    citations.sort((a,b) => a - b);
+
+    let left = 0;
+    let right = Math.max(...citations);
+
+    const isOK = (index) => {
+        let count = 0;
+        for (let i = 0; i < N; i += 1) {
+            if (index <= citations[i]) count += 1;
+        }
+        return index <= count;
+    }
+
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2);
+
+        if (isOK(mid)) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return right;
+};
+```
