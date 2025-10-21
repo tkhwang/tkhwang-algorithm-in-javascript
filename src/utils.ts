@@ -66,7 +66,11 @@ export function capitalize<T extends string>(str: T): Capitalize<T> {
  * Format a frontmatter type for display
  */
 export function typeLabel(type: FrontmatterType): string {
-	return capitalize(type)
+	const labels: Record<FrontmatterType, string> = {
+		basic: '📚 단일 패턴',
+		application: '🚀 복합 패턴',
+	}
+	return labels[type] ?? capitalize(type)
 }
 
 /**
