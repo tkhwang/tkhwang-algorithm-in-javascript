@@ -90,6 +90,7 @@ export const FRONTMATTER_TAGS = [
 	'heap',
 	'linked-list',
 	'mdx',
+	'monotonic-stack',
 	'open-source',
 	'prime-sieve-of-eratosthenes',
 	'prefix-sum',

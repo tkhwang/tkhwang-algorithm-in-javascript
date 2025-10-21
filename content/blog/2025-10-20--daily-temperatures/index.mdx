@@ -1,0 +1,50 @@
+---
+title: 739. Daily Temperatures
+slug: daily-temperatures
+description: 온도를 내림차순으로 유지하는 monotonic stack 구조와 더 따뜻한 날짜를 찾는 절차를 정리
+type: basic
+date: 2025-10-20
+lastUpdated: 2025-10-20
+tags:
+  - monotonic-stack
+---
+
+
+### 문제 설명 
+
+* [LeetCode 739. Daily Temperatures](https://leetcode.com/problems/daily-temperatures/)
+* 각 날짜의 온도를 조회하여 해당 날짜 이후에 더 높은 온도가 나타나는 날짜를 찾는 문제.
+
+### 풀이 아이디어
+
+* 각 온도를 순회하면서 각 온도를 monotonic stack 에 넣으면서 현재 온도와 stack top 의 온도를 비교.
+* stack top 보다 현재 온도가 더 높은 경우는 원하는 더 따뜻한 날짜를 찾은 것임.
+* stack pop 해서 이전 저장된 `[index, 온도]` 으로부터 현재 날짜와의 차이를 계산하여 result array 에 저장.
+
+### 해결 전략
+
+* [Monotonic Stack](../../frame/monotonic-stack/) 
+
+### 구현 
+
+```typescript
+/**
+ * @param {number[]} temperatures
+ * @return {number[]}
+ */
+var dailyTemperatures = function(temperatures) {
+    const N = temperatures.length;
+
+    const result = Array(N).fill(0);
+    const stack = [];
+
+    for (const [ index, temperature] of temperatures.entries()) {
+        while (stack.length && stack.at(-1)[1] < temperature) {
+            const [ lastIndex, lastTemp ] = stack.pop();
+            result[lastIndex] = index - lastIndex;
+        }
+        stack.push([ index, temperature ])
+    }
+    return result;
+};
+```
