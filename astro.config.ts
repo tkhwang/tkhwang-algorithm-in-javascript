@@ -1,5 +1,6 @@
 import type { Options as AutolinkHeadingsOptions } from 'rehype-autolink-headings'
 import type { Options as ExternalLinkOptions } from 'rehype-external-links'
+import { copyFile } from 'node:fs/promises'
 import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
@@ -19,6 +20,24 @@ import { SITE } from './src/constants'
 import { remarkAsides } from './src/remark'
 import { pagefindIntegration } from './src/utils'
 
+function sitemapAliasIntegration() {
+	return {
+		name: 'sitemap-alias',
+		hooks: {
+			'astro:build:done': async ({ dir, logger }) => {
+				const source = new URL('./sitemap-index.xml', dir)
+				const destination = new URL('./sitemap.xml', dir)
+				try {
+					await copyFile(source, destination)
+					logger.info('`sitemap.xml` created as alias of `sitemap-index.xml`')
+				} catch (error) {
+					logger.warn(`Failed to create sitemap.xml alias: ${(error as Error).message}`)
+				}
+			},
+		},
+	}
+}
+
 export default defineConfig({
 	experimental: {
 		fonts: [
@@ -34,7 +53,7 @@ export default defineConfig({
 	output: 'static',
 	trailingSlash: 'always',
 	site: SITE.url,
-	integrations: [expressiveCode(), mdx(), sitemap(), pagefindIntegration(), react()],
+	integrations: [expressiveCode(), mdx(), sitemap(), pagefindIntegration(), react(), sitemapAliasIntegration()],
 	vite: {
 		plugins: [tailwindcss()],
 	},
