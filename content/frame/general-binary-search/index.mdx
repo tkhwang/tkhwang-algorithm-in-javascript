@@ -1,0 +1,141 @@
+---
+title: Binary Search 이용한 최대값/최소값 풀이
+slug: general-binary-search
+description: 배열이나 답 범위를 절반씩 좁혀가며 탐색하는 기본 이진 탐색 패턴과 최대·최소 해를 찾는 응용 전략
+date: 2025-10-16
+lastUpdated: 2025-10-16
+tags:
+  - general-binary-search
+---
+
+* 처음에는 이 시각을 갖고 있지 않은 경우에는 이 문제를 binary search 를 이용해야하는 것을 생각해내기 어려움.
+* Binary search 적용해서 최대값 혹은 최소값을 찾는 문제
+
+
+### 최대값 찾기
+
+* 조건을 만족하는지 체크해서
+    * 만족하는 경우, **더 큰 range** 를 찾아야 함. `left = mid + 1`로 더 큰 영역을 탐색.
+    * 만족하지 않는 경우, **더 작은 range** 를 찾아야 함.
+```
+[MINIMUM_POSSIBLE_ANSWER,                MAXMIMUM_POSSIBLE_ANSWER]
+                             |
+                             |
+                             v
+[left                       mid                right]
+
+조건 만족 : 더 큰 range 를 찾아야 함.
+                               [mid + 1, ... , right]
+
+조건 만족하지 않 : 더 작은 range 를 찾아야 함.
+[left, ...,          mid-1]
+```
+
+* 탐색이 종료되는 경우를 보면 `left <= right` 를 만족하지 않는 경우 즉, `right < left` 가 되는 경우
+```
+[MINIMUM_POSSIBLE_ANSWER,                MAXMIMUM_POSSIBLE_ANSWER]
+
+이번 탐색까지는 만족함.
+              [left, right]
+                    |
+                   mid
+                             mid + 1
+                     [right, left]
+while 탐색 조건에 맞지 않아 종료
+```
+
+* 탐색이 끝나면 left는 "가능하지 않은 첫 번째 값",
+* right는 그보다 **작은 “마지막으로 가능한 값”** 이 됩니다.
+* 그래서 최종적으로 right가 우리가 찾던 최대 유효값입니다.
+
+
+```typescript
+const fn = arr => {
+    const isOK = (value) => {
+        // this function is implemented depending on the problem
+        return BOOLEAN;
+    }
+
+    let left = MINIMUM_POSSIBLE_ANSWER;
+    let right = MAXMIMUM_POSSIBLE_ANSWER;
+
+    while (left <= right) {
+        let mid = Math.floor((left + right) / 2);
+
+        // 이번 range 가 조건을 만족하므로 더 큰 range 를 찾아야 함.
+        if (isOK(mid)) {
+            left = mid + 1;
+        // 이번 range 가 조건을 만족하지 않으므로 더 작은 range 를 찾아야 함.
+        } else {
+            right = mid - 1;
+        }
+    }
+
+    return right;
+}
+```
+
+### 최소값 찾기
+
+* binary search 를 이용해서 최소값을 찾는 문제
+* 조건을 만족하는지 체크해서
+    * 만족하는 경우, **더 작은 range** 를 찾아야 함. `right = mid - 1`로 더 작은 영역을 탐색.
+    * 만족하지 않는 경우, **더 큰 range** 를 찾아야 함.
+
+```
+[MINIMUM_POSSIBLE_ANSWER,                MAXMIMUM_POSSIBLE_ANSWER]
+                             |
+                             |
+                             v
+[left                       mid                right]
+
+```
+
+* 탐색이 종료되는 경우를 보면 `left <= right` 를 만족하지 않는 경우 즉, `right < left` 가 되는 경우
+```
+[MINIMUM_POSSIBLE_ANSWER,                MAXMIMUM_POSSIBLE_ANSWER]
+
+이번 탐색까지는 만족함.
+              [left, right]
+                    |
+                   mid
+        mid-1
+        [right,left]
+while 탐색 조건에 맞지 않아 종료
+```
+
+* 탐색이 끝나면 right 는 "가능하지 않은 첫 번째 값",
+* left는 그보다 **더 큰 “마지막으로 가능한 값”** 이 됩니다.
+* 그래서 최종적으로 left가 우리가 찾던 최소 유효값이 됩니다.
+
+```typescript
+const fn = arr => {
+    const isOK = (value) => {
+        // this function is implemented depending on the problem
+        return BOOLEAN;
+    }
+
+    let left = MINIMUM_POSSIBLE_ANSWER;
+    let right = MAXMIMUM_POSSIBLE_ANSWER;
+
+    while (left <= right) {
+        let mid = Math.floor((left + right) / 2);
+
+        // 이번 range 가 조건을 만족하므로 더 작은 range 를 찾아야 함.
+        if (isOK(mid)) {
+            right = mid - 1;
+        // 이번 range 가 조건을 만족하지 않으므로 더 큰 range 를 찾아야 함.
+        } else {
+            left = mid + 1;
+        }
+    }
+
+    return left;
+}
+```
+
+
+### Reference
+
+- [LeetCode's Interview Crash Course: Data Structures and Algorithms](https://leetcode.com/explore/interview/card/leetcodes-interview-crash-course-data-structures-and-algorithms/?vacRef=problembanner)
+- [코딩 인터뷰를 위한 알고리즘 치트시트](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=301923855&start=slayer)
