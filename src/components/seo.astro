@@ -16,6 +16,7 @@ const {
 	description: siteDescription,
 	url: siteUrl,
 	defaultOgImage: siteImage,
+	lang: siteLang,
 } = SITE
 
 const seo = {
@@ -24,6 +25,8 @@ const seo = {
 	url: new URL(Astro.url.pathname, siteUrl),
 	image: new URL(image || siteImage, siteUrl),
 }
+
+const ogLocale = siteLang?.replace('-', '_')
 
 if (forceTitle) {
 	seo.title = forceTitle
@@ -39,6 +42,7 @@ if (forceTitle) {
 <meta property="og:url" content={seo.url} />
 <meta property="og:description" content={seo.description} />
 <meta property="og:image" content={seo.image} />
+{ogLocale && <meta property="og:locale" content={ogLocale} />}
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={seo.title} />

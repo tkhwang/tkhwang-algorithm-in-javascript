@@ -13,12 +13,11 @@ export const SITE: Record<string, string> = {
 	/**
 	 * Used on index page and as a fallback if no title is set
 	 */
-	titleDefault: 'Algorithm.js: Patterns first. Code later.',
+	titleDefault: 'Algorithm.js | 패턴별 알고리즘 가이드',
 	/**
 	 * Used in meta tags, RSS feed, and other places
 	 */
-	description:
-    'Learn LeetCode patterns in JavaScript — one frame at a time.',
+	description: 'JavaScript로 리트코드 패턴을 정리하는 알고리즘 가이드. Learn LeetCode patterns in JavaScript with Algorithm.js.',
 	/**
 	 * Language used in the <html> tag
 	 */
