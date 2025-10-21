@@ -70,7 +70,7 @@ export function typeLabel(type: FrontmatterType): string {
 		basic: '📚 단일 패턴',
 		application: '🚀 복합 패턴',
 	}
-	return labels[type] ?? capitalize(type)
+	return labels[type] ?? ''
 }
 
 /**
