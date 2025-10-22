@@ -1,0 +1,64 @@
+---
+title: 46. Permutations
+slug: permutations
+description: 백트래킹으로 경로를 구성하고 남은 숫자를 재귀적으로 순회하며 모든 순열을 생성하는 방법
+type: basic
+date: 2025-10-22
+lastUpdated: 2025-10-22
+tags:
+  - backtrack
+---
+
+
+### 문제 설명 
+
+* [LeetCode 46. Permutations](https://leetcode.com/problems/permutations/)
+* 주어진 숫자 배열의 모든 순열을 찾는 문제.
+
+### 풀이 아이디어
+
+* `1 <= nums.length <= 6` 이므로 backtrack 으로 풀 수 있음.
+
+### 해결 전략
+
+* [Backtrack](../../frame/backtrack/) 
+
+### 풀이 
+
+* `[]` 에서 출발해서 `nums`의 각 숫자를 backrack 방식으로 적용하면서 남아있는 숫자가 없을 때 까지 반복
+* backtrack 방식으로 모든 경우의 수를 탐색해야하므로 다음번 탐색을 위하여 `paths` 에 변경을 가하고
+* 다음번 탐색한 이후에는 다시 복원해야함.
+
+### 구현 
+
+```typescript
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permute = function(nums) {
+    const N = nums.lenght;
+
+    const result = [];
+
+    const backtrack = (paths, remain) => {
+        if (remain.length === 0) {
+            result.push(paths.slice());
+            return;
+        }
+
+        for (const [ i, num ] of remain.entries()) {
+            paths.push(num);
+
+            backtrack(paths, [ ...remain.slice(0, i), ...remain.slice(i + 1) ]);
+
+            paths.pop();
+
+        }
+    }
+
+    backtrack([], nums);
+    
+    return result;
+};
+```
