@@ -1,0 +1,44 @@
+---
+title: Trie
+slug: trie
+description: 문자 단위로 노드를 확장해 단어 삽입과 검색, 접두어 판별을 빠르게 수행하는 Trie 패턴과 구현 포인트를 정리
+date: 2025-10-22
+lastUpdated: 2025-10-22
+tags:
+  - trie
+---
+
+* 특정 텍스트 순서 비교 시 Trie 를 사용하면 빠르게 비교 가능.
+* 간단하게 object 사용해서 문자열 순서대로 노드를 확장하면 됨.
+
+### Trie 구성
+
+```typescript
+const trie = {};
+
+let node = trie;
+for (const ch of word) {
+    if (node[ch] === undefined) node[ch] = {};
+    node = node[ch];
+}
+node["word"] = word;
+```
+
+### Trie 검색
+
+```typescript
+let node = trie;
+for (const ch of word) {
+    if (node[ch] === undefined) return false;
+    node = node[ch];
+}
+return !!node["word"];
+```
+
+### 기본 문제들
+
+* [208. Implement Trie (Prefix Tree)](/blog/implement-trie-prefix-tree/)
+
+### Reference
+
+- [LeetCode's Interview Crash Course: Data Structures and Algorithms](https://leetcode.com/explore/interview/card/leetcodes-interview-crash-course-data-structures-and-algorithms/?vacRef=problembanner)

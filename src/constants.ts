@@ -100,6 +100,7 @@ export const FRONTMATTER_TAGS = [
 	'sliding-window',
 	'sort',
 	'stack',
+	'trie',
 	'tree',
 	'tree-bfs',
 	'tree-dfs',

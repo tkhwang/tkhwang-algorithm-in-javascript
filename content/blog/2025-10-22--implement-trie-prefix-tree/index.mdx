@@ -1,0 +1,99 @@
+---
+title: 208. Implement Trie (Prefix Tree)
+slug: implement-trie-prefix-tree
+description: 문자 단위로 노드를 확장해 삽입·검색·접두어 검사를 지원하는 Trie 자료구조 구축 방법 정리
+type: basic
+date: 2025-10-22
+lastUpdated: 2025-10-22
+tags:
+  - trie
+---
+
+
+### 문제 설명 
+
+* [LeetCode 208. Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/)
+
+
+### 풀이 아이디어
+
+* 텍스트 순서 비교 시 Trie 를 사용하면 빠르게 비교 가능.
+* `apple`, `app` 으로 구성한 trie 구조
+* 워드의 끝은 `node["word"]` 로 확인.
+
+```
+{
+   "a":{
+      "p":{
+         "p":{
+            "l":{
+               "e":{
+                  "word":"apple"
+               }
+            },
+            "word":"app"
+         }
+      }
+   }
+}
+```
+
+### 해결 전략
+
+* [Trie](../../frame/trie/) 
+
+### 구현 
+
+```typescript
+
+var Trie = function() {
+    this.trie = {};
+};
+
+/** 
+ * @param {string} word
+ * @return {void}
+ */
+Trie.prototype.insert = function(word) {
+    let node = this.trie;
+    for (const ch of word){
+        if (node[ch] === undefined) node[ch] = {};
+        node = node[ch];
+    }
+    node["word"] = word;
+};
+
+/** 
+ * @param {string} word
+ * @return {boolean}
+ */
+Trie.prototype.search = function(word) {
+    let node = this.trie;
+    for (const ch of word) {
+        if (node[ch] === undefined) return false;
+        node = node[ch];
+    }
+    return !!node["word"];
+};
+
+/** 
+ * @param {string} prefix
+ * @return {boolean}
+ */
+Trie.prototype.startsWith = function(prefix) {
+    let node = this.trie;
+    for (const ch of prefix) {
+        if (node[ch] === undefined) return false;
+        node = node[ch];
+    }
+    return true;
+};
+
+/** 
+ * Your Trie object will be instantiated and called as such:
+ * var obj = new Trie()
+ * obj.insert(word)
+ * var param_2 = obj.search(word)
+ * var param_3 = obj.startsWith(prefix)
+ */
+```
