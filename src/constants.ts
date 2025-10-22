@@ -95,6 +95,7 @@ export const FRONTMATTER_TAGS = [
 	'open-source',
 	'prime-sieve-of-eratosthenes',
 	'prefix-sum',
+	'range',
 	'set',
 	'sliding-window',
 	'sort',

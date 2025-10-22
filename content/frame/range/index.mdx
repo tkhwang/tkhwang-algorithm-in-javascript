@@ -1,0 +1,73 @@
+---
+title: Range
+slug: range
+description: 구간을 정렬해 겹침 여부를 판단하고 병합·분할하는 범위 처리 패턴과 대표 문제 전략을 정리
+date: 2025-10-22
+lastUpdated: 2025-10-22
+tags:
+  - range
+---
+
+### 구간 병합
+
+* 주어진 구간들을 병합하는 문제.
+* 구간을 begin 값으로 오름차순으로 정렬하고
+* mreged interval의 end 값과 current interval의 begin 값을 비교하여 병합 가능한 구간을 찾는 방법
+
+#### 병합 불가능 
+
+`병합 구간의 마지막 값의 end 값 < 현재 구간의 begin 값` 
+
+```
+                     current interval
+                     -----------------
+                     |               |
+     ------------
+     |          |
+      last in merged intervals
+```
+
+#### 병합 가능 
+
+`현재 구간의 begin 값 < 병합 구간의 마지막 값의 end 값`
+
+```
+           current interval
+          -----------------
+          |               |
+     ------------
+     |          |
+      last in merged intervals
+
+  [merged.at(-1[0], Math.max(merged.at(-1)[1], current.at(1)))]
+```
+
+### 구현
+
+```typescript
+var merge = function(intervals) {
+    intervals.sort((a,b) => a[0] - b[0]);
+
+    const stack = [];
+
+    for (const interval of intervals) {
+        if (stack.length === 0 || stack.at(-1)[1] < interval[0]) {
+            stack.push(interval)
+        } else {
+            stack.at(-1)[1] = Math.max(
+                stack.at(-1)[1],
+                interval[1]
+            )
+        }
+    }
+    return stack;
+};
+```
+
+### 기본 문제들
+
+* [56. Merge Intervals](/blog/merge-intervals/)
+
+### Reference
+
+- [LeetCode's Interview Crash Course: Data Structures and Algorithms](https://leetcode.com/explore/interview/card/leetcodes-interview-crash-course-data-structures-and-algorithms/?vacRef=problembanner)
