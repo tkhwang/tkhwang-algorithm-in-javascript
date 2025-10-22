@@ -1,0 +1,63 @@
+---
+title: 303. Range Sum Query - Immutable
+slug: range-sum-query-immutable
+description: Prefix sum 배열을 전처리해 구간 합 계산하는 불변 범위 합 문제
+type: basic
+date: 2025-10-22
+lastUpdated: 2025-10-22
+tags:
+  - prefix-sum
+---
+
+
+### 문제 설명 
+
+* [LeetCode 303. Range Sum Query - Immutable](https://leetcode.com/problems/range-sum-query-immutable/)
+* 배열을 주고, 주어진 구간합을 계산하는 문제
+
+### 풀이 아이디어
+
+* 구간합 계산하는 간단한 문제.
+* Immutable 구간합은 prefix sum 으로 해결 가능.
+* 문제는 mutable 구간합은 어떻게 계산할까 ?
+
+### 해결 전략
+
+* [Prefix Sum](../../frame/prefix-sum/) 
+
+### 풀이
+
+우리의 prefixSum 필살기 : `prefixSum[i-1]` 신경쓰지 않고 계산할 수 있음.
+
+```typescript
+// sum [ i ... j ]
+prefixSum[j] - prefixSum[i] + nums[i]
+```
+
+### 구현 
+
+```typescript
+class NumArray {
+    private nums: number[]
+    private prefixSum: number[];
+
+    constructor(nums: number[]) {
+        this.nums = nums;
+        this.prefixSum = Array(nums.length).fill(0);
+        this.prefixSum[0] = nums[0];
+        for (let i = 1; i < nums.length; i += 1) {
+            this.prefixSum[i] = this.prefixSum[i-1] + nums[i];
+        }
+    }
+
+    sumRange(left: number, right: number): number {
+        return this.prefixSum[right] - this.prefixSum[left] + this.nums[left];
+    }
+}
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * var obj = new NumArray(nums)
+ * var param_1 = obj.sumRange(left,right)
+ */
+```
