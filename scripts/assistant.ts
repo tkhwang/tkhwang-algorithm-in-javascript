@@ -1,9 +1,10 @@
 import { mkdir, writeFile } from 'node:fs/promises'
 import * as p from '@clack/prompts'
 import isValidFilename from 'valid-filename'
-import { FRONTMATTER_TAGS } from '../src/constants'
+import { FRONTMATTER_TAGS, FRONTMATTER_TYPES } from '../src/constants'
 
 const TAGS_NAMES = [...FRONTMATTER_TAGS]
+const TYPES_NAMES = [...FRONTMATTER_TYPES]
 
 async function main() {
 	p.intro('Assistant')
@@ -71,6 +72,14 @@ async function main() {
 					}
 				},
 			}),
+			type: () => p.select({
+				message: 'Type',
+				options: TYPES_NAMES.map(type => ({
+					value: type,
+					label: type,
+				})),
+				initialValue: TYPES_NAMES[0]!,
+			}),
 			date: () => p.text({
 				message: 'Date',
 				// Format: YYYY-MM-DD
@@ -106,6 +115,7 @@ async function main() {
 title: ${title}
 slug: ${blog.slug}
 description: ${blog.description}
+type: ${blog.type}
 date: ${blog.date}
 lastUpdated: ${blog.date}
 tags:
