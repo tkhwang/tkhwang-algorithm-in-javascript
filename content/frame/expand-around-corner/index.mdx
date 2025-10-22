@@ -1,0 +1,43 @@
+---
+title: Expand Around Corner   
+slug: expand-around-corner
+description: 중심을 기준으로 좌우로 확장하면서 특정 조건을 만족하는 가장 긴 부분을 찾는 방법
+date: 2025-10-22
+lastUpdated: 2025-10-22
+tags:
+  - expand-around-corner
+---
+
+
+
+```typescript
+var longestPalindrome = function(s) {
+    const N = s.length;
+
+    const expandAroundCorner = (left, right) => {
+        while (0 <= left && right < N && MEET_CONDITION(left, right)) {
+            if (max < right - left + 1) {
+                // operation
+            }
+            left -= 1;
+            right += 1;
+        }
+        return [ max ];
+    }
+
+    for (let i = 0; i < N; i += 1) {
+        const [ oddMax] = expandAroundCorner(i, i);
+        const [ evenMax ] = expandAroundCorner(i, i + 1);
+    }
+};
+```
+
+
+### 기본 문제들
+
+* [5. Longest Palindromic Substring](/blog/longest-palindromic-substring/)
+
+### Reference
+
+- [LeetCode's Interview Crash Course: Data Structures and Algorithms](https://leetcode.com/explore/interview/card/leetcodes-interview-crash-course-data-structures-and-algorithms/?vacRef=problembanner)
+

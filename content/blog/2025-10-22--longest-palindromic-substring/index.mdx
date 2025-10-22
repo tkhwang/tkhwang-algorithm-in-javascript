@@ -1,0 +1,68 @@
+---
+title: 5. Longest Palindromic Substring
+slug: longest-palindromic-substring
+description: 각 인덱스를 중심으로 좌우를 확장하며 홀짝 팰린드롬 길이를 비교해 최장 부분 문자열을 찾는 expand-around-corner 전략 정리
+type: basic
+date: 2025-10-22
+lastUpdated: 2025-10-22
+tags:
+  - expand-around-corner
+---
+
+
+### 문제 설명 
+
+* [LeetCode 5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
+* 주어진 문자열의 연속된 substring 중에서 가장 긴 팰린드롬을 찾는 문제.
+
+### 풀이 아이디어
+
+* 뭔가 DP (dynamic programming) 도 가능할 듯 한데...
+* [Expand Around Corner](../../frame/expand-around-corner/) 사용해서 풀어보자.
+
+
+### 해결 전략
+
+* [Expand Around Corner](../../frame/expand-around-corner/) 는 조건을 만족하는 동안 좌우로 확장하면서 가장 긴 부분을 찾는 방법.
+* 문자열을 순회하면서 
+   * `[i, i]` 에서 홀수 길이의 팰린드롬 찾기
+   * `[i, i + 1]` 에서 짝수 길이의 팰린드롬 찾기
+   * 두 경우 중에서 가장 긴 팰린드롬을 찾기
+
+### 구현 
+
+```typescript
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var longestPalindrome = function(s) {
+    const N = s.length;
+    let max = 0;
+    let maxValue = "";
+
+    const expandAroundCorner = (left, right) => {
+        let max = 0;
+        let maxValue = [];
+        while (0 <= left && right < N && s[left] === s[right]) {
+            if (max < right - left + 1) {
+                max = right - left + 1;
+                maxValue = [ left, right ];
+            }
+            left -= 1;
+            right += 1;
+        }
+        return [ max, maxValue ];
+    }
+
+    for (let i = 0; i < N; i += 1) {
+        const [ oddMax, oddMaxValue] = expandAroundCorner(i, i);
+        if (max < oddMax) [ max, maxValue ] = [ oddMax, oddMaxValue ];
+
+        const [evenMax, evenMaxValue ] = expandAroundCorner(i, i + 1);
+        if (max < evenMax) [ max, maxValue ] = [ evenMax, evenMaxValue ];
+    }
+
+    return maxValue.length > 0 ? s.slice(maxValue[0], maxValue[1] + 1) : "";
+};
+```
