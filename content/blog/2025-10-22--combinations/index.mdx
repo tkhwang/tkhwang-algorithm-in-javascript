@@ -1,0 +1,63 @@
+---
+title: 77. Combinations
+slug: combinations
+description: 오름차순으로 숫자를 탐색하며 길이가 k인 조합을 백트래킹으로 만들어 중복 없이 수집하는 절차 정리
+type: basic
+date: 2025-10-22
+lastUpdated: 2025-10-22
+tags:
+  - backtrack
+---
+
+
+### 문제 설명 
+
+* [LeetCode 46. Permutations](https://leetcode.com/problems/permutations/)
+* 주어진 숫자 배열에서 k 개의 조합을 찾는 문제.
+
+### 풀이 아이디어
+
+* `1 <= n <= 20` 이므로 backtrack 으로 풀 수 있음.
+
+### 해결 전략
+
+* [Backtrack](../../frame/backtrack/) 
+
+### 풀이 
+
+* 빈 `[]` 에서 출발하여 중복을 방지해야하므로, 순서대로 순회하기 위해서 `index` 를 사용하여 순회.
+* backtrack 방식으로 모든 경우의 수를 탐색해야하므로 다음번 탐색을 위하여 `paths` 에 변경을 가하고
+* 다음번 탐색한 이후에는 다시 복원해야함.
+
+### 구현 
+
+```typescript
+/**
+ * @param {number} n
+ * @param {number} k
+ * @return {number[][]}
+ */
+var combine = function(N, k) {
+    const result = [];
+
+    const backtrack = (paths, index) => {
+        if (paths.length === k) {
+            result.push([...paths]);
+            return;
+        }
+        if (index > N) return;
+
+        for (let i = index; i <= N; i += 1) {
+            paths.push(i);
+
+            backtrack(paths, i + 1);
+
+            paths.pop();
+        }
+    }
+
+    backtrack([], 1);
+
+    return result;
+};
+```
