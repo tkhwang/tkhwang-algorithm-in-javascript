@@ -9,7 +9,7 @@ export const SITE: Record<string, string> = {
 	/**
 	 * Site-wide title
 	 */
-	title: 'Algorithm.js',
+	title: 'Algorithm.js | Algorithm in JavaScript',
 	/**
 	 * Used on index page and as a fallback if no title is set
 	 */
