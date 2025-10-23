@@ -1,0 +1,51 @@
+---
+title: 198. House Robber
+slug: house-robber
+description: 연속해서 집을 털 수 없을 때 동적 계획법으로 누적 최대 금액을 계산하는 방법
+type: basic
+date: 2025-10-23
+lastUpdated: 2025-10-23
+tags:
+  - dynamic-programming
+---
+
+### 문제 설명 
+
+* [LeetCode 198. House Robber](https://leetcode.com/problems/house-robber/)
+* 주어진 집들의 돈을 터는 최대 금액을 구하는 문제. 단, 연속된 집을 터는 경우 경보가 울림.
+
+### 풀이 아이디어
+
+* 전형적인 bottom-up dynamic programming 문제.
+* 현재 위치에서 얻을 수 있는 최대 금액 `dp[i]`는
+    - 이번 집 터는 경우: 바로 옆 집을 털 수 없으니깐 전전집을 턴 금액 `dp[i-2]` 에 추가로 이번 집 금액 `nums[i]` 더한 값
+    - 이번 집 털지 않은 경우: 전집을 터는 경우의 최대 금액 `dp[i-1]` 을 그대로 가져옴
+
+### 해결 전략
+
+* [Dynamic Programming](../../frame/dynamic-programming/)
+
+### 구현 
+
+```typescript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var rob = function(nums) {
+    const N = nums.length;
+
+    const dp = Array(N).fill(0);
+    dp[0] = nums[0];
+    dp[1] = Math.max(nums[0], nums[1]);
+
+    for (let i = 2; i < N; i += 1) {
+        dp[i] = Math.max(
+            dp[i-1],
+            dp[i-2] + nums[i]
+        )
+    }
+
+    return dp[N-1];
+};
+```
