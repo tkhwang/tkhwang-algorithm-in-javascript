@@ -1,0 +1,57 @@
+---
+title: 452. Minimum Number of Arrows to Burst Balloons
+slug: minimum-number-of-arrows-to-burst-balloons
+description: 풍선 구간을 시작 좌표로 정렬한 뒤 겹치는 범위를 하나의 화살로 묶고 끊어질 때마다 화살 수를 늘리는 그리디 전략 정리
+type: basic
+date: 2025-10-27
+lastUpdated: 2025-10-27
+tags:
+  - greedy
+  - range
+---
+
+
+### 문제 설명 
+
+* [LeetCode 452. Minimum Number of Arrows to Burst Balloons](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/)
+* 주어진 화살로 최대한 많은 풍선을 터뜨리는 문제.
+
+### 풀이 아이디어
+
+* points를 시작 위치 기준으로 오름차순 정렬
+* 이전 끝 위치와 현재 시작 위치를 비교
+* 이전 끝 위치 < 현재 시작 위치라면 한 번에 맞출 수 없을 수 없으므로 화살 추가하고 끝 위치를 현재 끝 위치로 갱신.
+* 이전 끝 위치 > 현재 시작 위치라면 겹쳐지므로 이전 끝 위치 유지하고, 화살 갯수도 유지
+
+### 해결 전략
+
+* [Greedy](../../frame/greedy/)
+* [Range](../../frame/range/)
+
+### 구현 
+
+```typescript
+/**
+ * @param {number[][]} points
+ * @return {number}
+ */
+var findMinArrowShots = function(points) {
+    const N = points.length;
+
+    points.sort((a,b) => a[0] - b[0]);
+
+    let prvEnd = points[0][1];
+    let count = 1;
+
+    for (let i = 1; i < N; i += 1) {
+        const [ begin, end ] = points[i];
+
+        if (prvEnd < begin) {
+            count += 1;
+            prvEnd = end;
+        }
+    }
+
+    return count;
+};
+```
