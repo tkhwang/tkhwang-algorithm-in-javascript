@@ -8,7 +8,7 @@ tags:
   - range
 ---
 
-### 구간 병합
+## 구간 병합
 
 * 주어진 구간들을 병합하는 문제.
 * 구간을 begin 값으로 오름차순으로 정렬하고
@@ -64,9 +64,35 @@ var merge = function(intervals) {
 };
 ```
 
+## 구간 겹침 여부 판단
+
+* 구간을 시작 시간 기준으로 오름차순 정렬
+* 이전 구간의 종료시간이 다음 구간의 시작시간보다 크다면 겹침 발생.
+
+```typescriptvar merge = function(intervals) {
+    intervals.sort((a,b) => a[0] - b[0]);
+
+    const stack = [];
+
+    for (const interval of intervals) {
+        if (stack.length === 0 || stack.at(-1)[1] < interval[0]) {
+            stack.push(interval)
+        } else {
+            stack.at(-1)[1] = Math.max(
+                stack.at(-1)[1],
+                interval[1]
+            )
+        }
+    }
+    return stack;
+};
+```
+
+
 ### 기본 문제들
 
 * [56. Merge Intervals](/blog/merge-intervals/)
+* [252. Meeting Rooms](/blog/meeting-rooms/)
 
 ### Reference
 
