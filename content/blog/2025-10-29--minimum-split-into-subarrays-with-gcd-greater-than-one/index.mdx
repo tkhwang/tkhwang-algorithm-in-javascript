@@ -1,0 +1,62 @@
+---
+title: 2436. Minimum Split Into Subarrays With GCD Greater Than One
+slug: minimum-split-into-subarrays-with-gcd-greater-than-one
+description: 순차적으로 gcd를 축적하다가 1이 되는 순간 구간을 끊고 현재 값을 초기화해 최소 분할 수를 계산하는 선형 탐욕 전략 정리
+type: basic
+date: 2025-10-29
+lastUpdated: 2025-10-29
+tags:
+  - gcd
+  - greedy
+---
+
+
+### 문제 설명 
+
+* [LeetCode 2436. Minimum Split Into Subarrays With GCD Greater Than One](https://leetcode.com/problems/minimum-split-into-subarrays-with-gcd-greater-than-one/)
+* 주어진 배열의 subarray 들의 gcd 보다 큰 수로 분할하는 최소 분할 갯수를 찾는 문제.
+
+### 풀이 아이디어
+
+* GCD 는 subarray 와 연결해서 자주 나온다.
+* GCD 는 두 수의 공통된 약수 중 가장 큰 수를 찾는 것이므로 숫자가 많아질 수록 작아지면 최종 1이 된다.
+* `[i...j]` 범위까지 subarray GCD 가 1이 된다면
+    * `[i...j-1]` 까지는 1 이 아닌 GCD 가 있었으니깐 이 subarray 를 분할하고 
+    * `[j...]` j부터 다시 새로운 subarray 를 찾도록 시작
+* 이렇게 GCD 가 1 이 되는 순간 subarray 분할하는 Greedy 전략
+
+
+### 해결 전략
+
+* [GCD](../../frame/gcd/)
+* [Greedy](../../frame/greedy/)
+
+### 구현 
+
+```typescript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minimumSplits = function(nums) {
+    const N = nums.length;
+
+    const gcd = (a, b) => {
+        if (b === 0) return a;
+        return gcd(b, a % b);
+    }
+
+    let currentGCD = nums[0];
+    let count = 1;
+
+    for (let i = 1; i < N; i += 1) {
+        currentGCD = gcd(nums[i], currentGCD);
+        if (currentGCD === 1) {
+            count += 1;
+            currentGCD = nums[i];
+        }
+    }
+
+    return count;
+};
+```
