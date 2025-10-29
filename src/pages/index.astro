@@ -55,6 +55,8 @@ const frames = sortDesc(await getCollection('frame')).slice(0, FRAMES_TO_SHOW)
 										{frame.title}
 									</Link>
 									<Spacer axis="vertical" size={2} />
+									<div class="text-subtle text-md md:text-lg">{frame.description}</div>
+									<Spacer axis="vertical" size={2} />
 									<div class="text-faded">{defaultDateFormat(frame.date)}</div>
 								</div>
 							))}

@@ -1,0 +1,62 @@
+---
+title: 2447. Number of Subarrays With GCD Equal to K
+slug: number-of-subarrays-with-gcd-equal-to-k
+description: 시작 인덱스를 고정하고 오른쪽으로 확장하며 gcd를 갱신해 k가 되면 카운트하고 k보다 작아지면 중단하는 O(n^2) sliding window 전략 정리
+type: application
+date: 2025-10-29
+lastUpdated: 2025-10-29
+tags:
+  - gcd
+  - sliding-window
+---
+
+
+### 문제 설명 
+
+* [LeetCode 2447. Number of Subarrays With GCD Equal to K](https://leetcode.com/problems/number-of-subarrays-with-gcd-equal-to-k/)
+
+
+### 풀이 아이디어
+
+* 문제 조건 `1 <= nums.length <= 1000` 이므로 `O(n^2)` 시간 복잡도로 풀 수 있음.
+* left pointer 로 순회하면서 
+* right pointer 를 left 부터 조건이 만족하면 계속 확장하면서 window (subarray)의 갯수를 센다.
+* 조건 만족은 subarray 의 gcd 가 k 가 되어야 하므로
+    * currentGCD 를 계속 업데이트하면서 currentGCD 와 nums[right]의 gcd 가 k 인지 체크 
+    * early stopping 조건은 currentGCD 가 k 보다 작으면 더 이상 확장할 필요가 없음.
+
+### 해결 전략
+
+* [GCD](../../frame/gcd/)
+* [Sliding window](../../frame/sliding-window/)
+
+### 구현 
+
+```typescript
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var subarrayGCD = function(nums, k) {
+    const N = nums.length;
+
+    const gcd = (a,b) => {
+        if (b === 0) return a;
+        return gcd(b, a % b);
+    }
+
+    let count = 0;
+    
+    for (let left = 0; left < N; left++) {
+        let currentGCD = 0;  
+        for (let right = left; right < N; right++) {
+            currentGCD = gcd(currentGCD, nums[right]);
+            
+            if (currentGCD === k) count++;
+            else if (currentGCD < k) break;
+        }
+    }
+    return count;
+};
+```

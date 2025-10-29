@@ -83,6 +83,7 @@ export const FRONTMATTER_TAGS = [
 	'difference-array',
 	'dynamic-programming',
 	'expand-around-corner',
+	'gcd',
 	'general',
 	'general-binary-search',
 	'graph-dfs',

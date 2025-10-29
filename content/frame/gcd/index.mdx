@@ -1,0 +1,30 @@
+---
+title: GCD (Greatest Common Divisor) 최대공약수
+slug: gcd
+description: 유클리드 호제법으로 두 수의 최대공약수를 재귀적으로 계산하는 원리와 구현 요약
+date: 2025-10-29
+lastUpdated: 2025-10-29
+tags:
+  - gcd
+---
+
+* `gcd` 는 두 수의 최대공약수를 찾는 함수.
+* a, b 두 수의 최대공약수는 
+* b = 0 이면 a 가 최대공약수.
+* b != 0 이면 a, b 의 최대공약수는 b, a % b 의 최대공약수와 같음.
+* 이를 재귀적으로 계산하면 됨.
+
+```typescript
+const gcd = (a, b) => {
+    if (b === 0) return a;
+    return gcd(b, a % b);
+}
+```
+
+### 응용 문제들
+
+* [2447. Number of Subarrays With GCD Equal to K](/blog/number-of-subarrays-with-gcd-equal-to-k/)
+
+
+
+
