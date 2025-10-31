@@ -1,0 +1,110 @@
+---
+title: 64. Minimum Path Sum
+slug: minimum-path-sum
+description: 2차원 grid에서 오른쪽 아래까지의 최소 경로 합을 bottom-up 동적 계획법으로 구하는 방법 정리
+type: basic
+date: 2025-10-31
+lastUpdated: 2025-10-31
+tags:
+  - dynamic-programming
+---
+
+
+
+### 문제 설명 
+
+* [LeetCode 64. Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/)
+![img](https://github.com/tkhwang/tkhwang-etc/blob/master/img/2025/10/minpath.jpg?raw=true)
+* 주어진 grid 에서 왼쪽 위에서 오른쪽 아래로 가는 경로 중, 합이 최소가 되는 경로의 합을 구하는 문제.
+
+### 풀이 아이디어
+
+* `1 <= m, n <= 200`
+*  가장 먼저 드는 생각은 [graph-dfs](/blog/graph-dfs/) 일 것이다.
+* Top down recursive 로 풀면 작은 사이즈에서는 통과가 되는데 큰 사이즈에서는 시간 초과가 발생한다.
+    - Top down recursive 에 memoization 을 적용해도 시간 초과가 발생하네요.
+```typescript
+var minPathSum = function(grid) {
+    const [ ROWS, COLS ] = [ grid.length, grid[0].length ];
+
+    const cache = {};
+    const genKey = (r,c) => `${r}${c}`;
+
+    const dfs = (r, c) => {
+        if (r < 0 || c < 0) return Infinity;
+        if (c === 0) {
+            let sum = 0;
+            for (let iR = 0; iR <= r; iR += 1) {
+                sum += grid[iR][0];
+            }
+            return sum;
+        }
+        if (c === 0) {
+            let sum = 0;
+            for (let iC = 0; iC <= c; iC += 1) {
+                sum += grid[0][iC];
+            }
+            return sum;
+        }
+
+        const key = genKey(r, c);
+        if (cache[key] !== undefined) return cache[key];
+
+        cache[key] = Math.min(
+            dfs(r-1, c),
+            dfs(r, c- 1)
+        ) + grid[r][c];
+        return cache[key];
+    }
+
+    return dfs(ROWS - 1, COLS - 1)
+};
+```
+* 이런 경우에는 bottom up dynamic programming 이 가장 효율적입니다.
+
+### 해결 전략
+
+* [Dynamic Programming](../../frame/dynamic-programming/)
+
+### 풀이
+
+* r = 0 또는 c = 0 인 경우에는 path 가 하나 밖에 없으므로 합해서 미리 계산을 해둔다.
+* 그 외의 경우에 `[r][c]` 위치에 오는 방법은
+    - `[r-1][c]` 에서 오는 경우
+    - `[r][c-1]` 에서 오는 경우
+    - 두 경우 중 최소값을 선택하고 현재 위치의 값을 더해서 저장한다.
+* `dp[r][c]` 를 `[r][c]` 위치에 오는 최소 합으로 정의
+*  최종 답은 `dp[ROWS-1][COLS-1]` 이다.
+
+### 구현 
+
+```typescript
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var minPathSum = function(grid) {
+    const [ ROWS, COLS ] = [ grid.length, grid[0].length ];
+
+    const dp = Array(ROWS).fill(null).map(() => Array(COLS).fill(0));
+    dp[0][0] = grid[0][0]
+
+    for (let r = 1 ; r < ROWS; r += 1) {
+        dp[r][0] = dp[r-1][0] + grid[r][0]
+    }
+    for (let c = 1; c < COLS; c += 1) {
+        dp[0][c] = dp[0][c-1] + grid[0][c];
+    }
+
+    for (let r = 1; r < ROWS; r += 1) {
+        for (let c = 1; c < COLS; c += 1) {
+            dp[r][c] = Math.min(
+                dp[r-1][c] + grid[r][c],
+                dp[r][c-1] + grid[r][c]
+            )
+        }
+    }
+
+    return dp[ROWS-1][COLS-1];
+};
+```
