@@ -55,7 +55,7 @@ const frames = sortDesc(await getCollection('frame')).slice(0, FRAMES_TO_SHOW)
 										{frame.title}
 									</Link>
 									<Spacer axis="vertical" size={2} />
-									<div class="text-subtle text-md md:text-lg">{frame.description}</div>
+									<div class="text-subtle text-description text-md md:text-lg">{frame.description}</div>
 									<Spacer axis="vertical" size={2} />
 									<div class="text-faded">{defaultDateFormat(frame.date)}</div>
 								</div>
@@ -86,7 +86,7 @@ const frames = sortDesc(await getCollection('frame')).slice(0, FRAMES_TO_SHOW)
 										{post.title}
 									</Link>
 									<Spacer axis="vertical" size={2} />
-									<div class="text-subtle text-md md:text-lg">{post.description}</div>
+									<div class="text-subtle text-description text-md md:text-lg">{post.description}</div>
 									<Spacer axis="vertical" size={2} />
 									<div class="text-faded">
 										{defaultDateFormat(post.date)} — {post.tags.join(', ')}
@@ -119,7 +119,7 @@ const frames = sortDesc(await getCollection('frame')).slice(0, FRAMES_TO_SHOW)
 										{post.title}
 									</Link>
 									<Spacer axis="vertical" size={2} />
-									<div class="text-subtle text-md md:text-lg">{post.description}</div>
+									<div class="text-subtle text-description text-md md:text-lg">{post.description}</div>
 									<Spacer axis="vertical" size={2} />
 									<div class="text-faded">
 										{defaultDateFormat(post.date)} — {post.tags.join(', ')}

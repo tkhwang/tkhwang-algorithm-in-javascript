@@ -56,6 +56,14 @@
 	}
 }
 
+@utility text-description {
+	opacity: 0.60;
+}
+
+@utility text-description-muted {
+	opacity: 0.60;
+}
+
 @custom-variant prose-inline-code {
 	&.prose :where(:not(pre) > code):not(:where([class~='not-prose'] *)) {
 		@slot;

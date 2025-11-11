@@ -40,7 +40,7 @@ const posts = sortDesc(await getCollection('blog', ({ data }) => data.type === t
 								{post.title}
 							</Link>
 							<Spacer axis="vertical" size={2} />
-							<div class="text-subtle text-md md:text-lg">{post.description}</div>
+							<div class="text-subtle text-description-muted text-md md:text-lg">{post.description}</div>
 							<Spacer axis="vertical" size={2} />
 							<div class="text-faded">
 								{defaultDateFormat(post.date)} — {post.tags.join(', ')}

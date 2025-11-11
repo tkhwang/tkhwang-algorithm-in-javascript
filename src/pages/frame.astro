@@ -24,7 +24,7 @@ const frames = sortDesc(await getCollection('frame'))
 							{frame.title}
 						</Link>
 						<Spacer axis="vertical" size={2} />
-						<div class="text-subtle text-md md:text-lg">{frame.description}</div>
+						<div class="text-subtle text-description-muted text-md md:text-lg">{frame.description}</div>
 						<Spacer axis="vertical" size={2} />
 						<div class="text-faded">
 							{defaultDateFormat(frame.date)}
