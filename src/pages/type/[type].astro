@@ -7,6 +7,7 @@ import { defaultDateFormat, sortDesc, typeLabel } from '@utils'
 import Spacer from '@components/spacer.astro'
 import Link from '@components/link.astro'
 import { FRONTMATTER_TYPES, type FrontmatterType } from '@constants'
+import TagLinks from '@components/tag-links.astro'
 
 export async function getStaticPaths() {
 	return FRONTMATTER_TYPES.map((type) => ({
@@ -42,8 +43,9 @@ const posts = sortDesc(await getCollection('blog', ({ data }) => data.type === t
 							<Spacer axis="vertical" size={2} />
 							<div class="text-subtle text-description-muted text-md md:text-lg">{post.description}</div>
 							<Spacer axis="vertical" size={2} />
-							<div class="text-faded">
-								{defaultDateFormat(post.date)} — {post.tags.join(', ')}
+							<div class="flex flex-wrap items-center gap-3 text-faded text-sm">
+								<span>{defaultDateFormat(post.date)}</span>
+								<TagLinks tags={post.tags} />
 							</div>
 						</div>
 					))

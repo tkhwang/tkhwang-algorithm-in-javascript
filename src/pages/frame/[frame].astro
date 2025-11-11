@@ -53,16 +53,9 @@ const { Content } = await render(entry)
 					</>
 				) : null
 			}
-			<div class="text-faded">
-				{defaultDateFormat(frame.date)}
-				{
-					frame.tags.length ? (
-						<>
-							{' — '}
-							<TagLinks tags={frame.tags} />
-						</>
-					) : null
-				}
+			<div class="flex flex-wrap items-center gap-3 text-faded text-sm">
+				<span>{defaultDateFormat(frame.date)}</span>
+				{frame.tags.length ? <TagLinks tags={frame.tags} /> : null}
 			</div>
 			<Spacer axis="vertical" size={12} />
 			<Content components={{ Aside, Playground }} />

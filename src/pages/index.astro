@@ -9,6 +9,7 @@ import Link from '@components/link.astro'
 import Prose from '@components/prose.astro'
 import Spacer from '@components/spacer.astro'
 import { SITE } from '@constants'
+import TagLinks from '@components/tag-links.astro'
 
 const OSS_PROJECTS: Array<{ name: string; url: string; description: string }> = []
 
@@ -57,7 +58,10 @@ const frames = sortDesc(await getCollection('frame')).slice(0, FRAMES_TO_SHOW)
 									<Spacer axis="vertical" size={2} />
 									<div class="text-subtle text-description text-md md:text-lg">{frame.description}</div>
 									<Spacer axis="vertical" size={2} />
-									<div class="text-faded">{defaultDateFormat(frame.date)}</div>
+									<div class="flex flex-wrap items-center gap-3 text-faded text-sm">
+										<span>{defaultDateFormat(frame.date)}</span>
+										{frame.tags.length ? <TagLinks tags={frame.tags} /> : null}
+									</div>
 								</div>
 							))}
 						</div>
@@ -88,8 +92,9 @@ const frames = sortDesc(await getCollection('frame')).slice(0, FRAMES_TO_SHOW)
 									<Spacer axis="vertical" size={2} />
 									<div class="text-subtle text-description text-md md:text-lg">{post.description}</div>
 									<Spacer axis="vertical" size={2} />
-									<div class="text-faded">
-										{defaultDateFormat(post.date)} — {post.tags.join(', ')}
+									<div class="flex flex-wrap items-center gap-3 text-faded text-sm">
+										<span>{defaultDateFormat(post.date)}</span>
+										<TagLinks tags={post.tags} />
 									</div>
 								</div>
 							))}
@@ -121,8 +126,9 @@ const frames = sortDesc(await getCollection('frame')).slice(0, FRAMES_TO_SHOW)
 									<Spacer axis="vertical" size={2} />
 									<div class="text-subtle text-description text-md md:text-lg">{post.description}</div>
 									<Spacer axis="vertical" size={2} />
-									<div class="text-faded">
-										{defaultDateFormat(post.date)} — {post.tags.join(', ')}
+									<div class="flex flex-wrap items-center gap-3 text-faded text-sm">
+										<span>{defaultDateFormat(post.date)}</span>
+										<TagLinks tags={post.tags} />
 									</div>
 								</div>
 							))}

@@ -7,6 +7,7 @@ import { FRONTMATTER_TAGS } from '@constants'
 import Layout from '@layouts/layout.astro'
 import { defaultDateFormat, getPostsByTag, sortDesc } from '@utils'
 import { getCollection } from 'astro:content'
+import TagLinks from '@components/tag-links.astro'
 
 /**
  * 1. Generate static pages for all tags.
@@ -61,8 +62,9 @@ const { tagName, postsWithTag } = Astro.props
 								<Spacer axis="vertical" size={2} />
 							</>
 						) : null}
-						<div class="text-faded">
-							{defaultDateFormat(post.date)} — {post.tags.join(', ')}
+						<div class="flex flex-wrap items-center gap-3 text-faded text-sm">
+							<span>{defaultDateFormat(post.date)}</span>
+							<TagLinks tags={post.tags} />
 						</div>
 					</div>
 				))

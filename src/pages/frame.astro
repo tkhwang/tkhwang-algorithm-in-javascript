@@ -6,6 +6,7 @@ import SkipNavContent from '@components/a11y/skip-nav-content.astro'
 import { defaultDateFormat, sortDesc } from '@utils'
 import Spacer from '@components/spacer.astro'
 import Link from '@components/link.astro'
+import TagLinks from '@components/tag-links.astro'
 
 const frames = sortDesc(await getCollection('frame'))
 ---
@@ -26,9 +27,9 @@ const frames = sortDesc(await getCollection('frame'))
 						<Spacer axis="vertical" size={2} />
 						<div class="text-subtle text-description-muted text-md md:text-lg">{frame.description}</div>
 						<Spacer axis="vertical" size={2} />
-						<div class="text-faded">
-							{defaultDateFormat(frame.date)}
-							{frame.tags.length ? ` — ${frame.tags.join(', ')}` : null}
+						<div class="flex flex-wrap items-center gap-3 text-faded text-sm">
+							<span>{defaultDateFormat(frame.date)}</span>
+							{frame.tags.length ? <TagLinks tags={frame.tags} /> : null}
 						</div>
 					</div>
 				))
